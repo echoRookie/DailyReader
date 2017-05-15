@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DailyReader</string>
+    <string name="nav_header_text">他山之石，可以攻玉</string>
+    <string name="nav_setting">设置</string>
+    <string name="nav_about">关于</string>
+    <string name="nav_collection">收藏</string>
+</resources>
