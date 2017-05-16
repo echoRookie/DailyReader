@@ -5,10 +5,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <FrameLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </FrameLayout>
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/MyToolbar"
+            android:background="@color/primary_material_light_1"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        </android.support.design.widget.AppBarLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <FrameLayout
+                android:id="@+id/MainContent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></FrameLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:alpha="0.6"
+                android:background="@android:color/darker_gray"/>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/MainTab"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:tabIndicatorHeight="0dp"
+                app:tabTextColor="@android:color/darker_gray">
+            </android.support.design.widget.TabLayout>
+            </LinearLayout>
+
+
+
+    </android.support.design.widget.CoordinatorLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/MyNavView"
         android:layout_gravity="start"
