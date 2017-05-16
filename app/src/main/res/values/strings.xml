@@ -4,4 +4,7 @@
     <string name="nav_setting">设置</string>
     <string name="nav_about">关于</string>
     <string name="nav_collection">收藏</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

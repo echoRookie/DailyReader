@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rookie.dailyreader.Fragment.MeiziFragment;
 import com.example.rookie.dailyreader.gson.MeiziGson;
 import com.example.rookie.dailyreader.util.HttpUtil;
 
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private String TabTextList[] = new String[]{"妹子","段子","趣闻"};
     private Integer TabImage[] = new Integer[]{R.drawable.tab_meizi,R.drawable.tab_news,R.drawable.tab_joker};
     private Integer TabImageSelect[] = new Integer[]{R.drawable.tab_meizi_select,R.drawable.tab_news_select,R.drawable.tab_joker_select};
-
+    private  ArrayList<String> imageUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,26 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         imageView.setImageResource(TabImage[i]);
                         textView.setTextColor(getResources().getColor(android.R.color.darker_gray));
+                    }
+                    if (tab.getPosition()==0){
+                        HttpUtil.sendOkHttpRequest(url, new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                MeiziGson meiziGson =HttpUtil.handleMeiziResponse(response.body().string());
+                                for(int i=0;i<meiziGson.MeiziList.size();i++)
+                                    imageUrl.add(meiziGson.MeiziList.get(i).url);
+                            }
+                        });
+                        MeiziFragment meiziFragment = new MeiziFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putStringArrayList("imageurl",imageUrl);
+                        meiziFragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.MainContent,meiziFragment).commit();
                     }
 
                 }
@@ -78,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 MeiziGson meiziGson =HttpUtil.handleMeiziResponse(response.body().string());
-                Log.d("m",meiziGson.MeiziList.get(0).url);
+                for(int i=0;i<meiziGson.MeiziList.size();i++)
+                    imageUrl.add(meiziGson.MeiziList.get(i).url);
             }
         });
 
