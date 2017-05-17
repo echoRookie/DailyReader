@@ -1,6 +1,7 @@
 package com.example.rookie.dailyreader.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.rookie.dailyreader.MainActivity;
 import com.example.rookie.dailyreader.R;
+import com.example.rookie.dailyreader.activity.MeiziDetialActivity;
 import com.example.rookie.dailyreader.gson.MeiziGson;
 
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ import java.util.List;
 
 public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.ViewHolder> {
     private ArrayList<String> mlist;
-    private Context context;
+    private Context mcontext;
     static  class  ViewHolder extends  RecyclerView.ViewHolder{
         ImageView MeiziImage;
 
@@ -29,8 +32,9 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.ViewHolder> 
             MeiziImage = (ImageView)  itemView.findViewById(R.id.meizi_item_image);
         }
     }
-    public  MeiziAdapter (ArrayList <String> list){
+    public  MeiziAdapter (ArrayList <String> list,Context context){
         mlist=list;
+        mcontext=context;
     }
 
     @Override
@@ -41,8 +45,18 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Glide.with(context).load(mlist.get(position)).into(holder.MeiziImage);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        holder.MeiziImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(mcontext, MeiziDetialActivity.class);
+                intent.putExtra("position",position);
+                intent.putExtra("mlist",mlist);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mcontext.startActivity(intent);
+            }
+        });
+        Glide.with(mcontext).load(mlist.get(position)).into(holder.MeiziImage);
 
     }
 

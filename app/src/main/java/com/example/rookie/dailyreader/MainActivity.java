@@ -32,18 +32,47 @@ public class MainActivity extends AppCompatActivity {
     private String TabTextList[] = new String[]{"妹子","段子","趣闻"};
     private Integer TabImage[] = new Integer[]{R.drawable.tab_meizi,R.drawable.tab_news,R.drawable.tab_joker};
     private Integer TabImageSelect[] = new Integer[]{R.drawable.tab_meizi_select,R.drawable.tab_news_select,R.drawable.tab_joker_select};
-    private  ArrayList<String> imageUrl;
+    private  ArrayList<String> imageUrl = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.MyToolbar);
         toolbar.setTitle("DailyReader");
+
+        HttpUtil.sendOkHttpRequest(url, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                MeiziGson meiziGson =HttpUtil.handleMeiziResponse(response.body().string());
+                imageUrl= new ArrayList<String>();
+                for (int i=0;i<meiziGson.MeiziList.size();i++){
+                    imageUrl.add(meiziGson.MeiziList.get(i).url);
+                }
+                Log.d("mm",meiziGson.MeiziList.get(0).url+"长度为"+imageUrl.size());
+                Log.d("mmm","长度为"+imageUrl.size());
+            }
+        });
         tabLayout = (TabLayout) findViewById(R.id.MainTab);
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition()==0){
+
+                    MeiziFragment meiziFragment = new MeiziFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("imageurl",imageUrl);
+                    meiziFragment.setArguments(bundle);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.MainContent,meiziFragment).commit();
+                    Log.d("select","aaaaa");
+                }
                 for (int i = 0; i < tabLayout.getTabCount(); i++) {
+
                     View view = tabLayout.getTabAt(i).getCustomView();
                     ImageView imageView = (ImageView) view.findViewById(R.id.TabImage);
                     TextView textView = (TextView) view.findViewById(R.id.TabText);
@@ -54,28 +83,10 @@ public class MainActivity extends AppCompatActivity {
                         imageView.setImageResource(TabImage[i]);
                         textView.setTextColor(getResources().getColor(android.R.color.darker_gray));
                     }
-                    if (tab.getPosition()==0){
-                        HttpUtil.sendOkHttpRequest(url, new Callback() {
-                            @Override
-                            public void onFailure(Call call, IOException e) {
 
-                            }
-
-                            @Override
-                            public void onResponse(Call call, Response response) throws IOException {
-                                MeiziGson meiziGson =HttpUtil.handleMeiziResponse(response.body().string());
-                                for(int i=0;i<meiziGson.MeiziList.size();i++)
-                                    imageUrl.add(meiziGson.MeiziList.get(i).url);
-                            }
-                        });
-                        MeiziFragment meiziFragment = new MeiziFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putStringArrayList("imageurl",imageUrl);
-                        meiziFragment.setArguments(bundle);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.MainContent,meiziFragment).commit();
-                    }
 
                 }
+
             }
 
             @Override
@@ -88,22 +99,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         for (int i = 0; i < 3; i++) {
-            tabLayout.addTab(tabLayout.newTab().setCustomView(getView(this, i)));
-           }
-        HttpUtil.sendOkHttpRequest(url, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
+            if(i==0){
+                tabLayout.addTab(tabLayout.newTab().setCustomView(getView(this,i)),true);
             }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                MeiziGson meiziGson =HttpUtil.handleMeiziResponse(response.body().string());
-                for(int i=0;i<meiziGson.MeiziList.size();i++)
-                    imageUrl.add(meiziGson.MeiziList.get(i).url);
-            }
-        });
+            else {
+                tabLayout.addTab(tabLayout.newTab().setCustomView(getView(this, i)));}
+        }
 
     }
     public View getView(Context context,int position){

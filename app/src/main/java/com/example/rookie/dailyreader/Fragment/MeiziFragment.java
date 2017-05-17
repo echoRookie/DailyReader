@@ -22,16 +22,24 @@ import java.util.List;
 
 public class MeiziFragment extends Fragment {
     private ArrayList<String> mlist;
+    private RecyclerView recyclerView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mlist= getArguments().getStringArrayList("imageurl");
         View  view = inflater.inflate(R.layout.meizi_layout,container,false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.MeiZiRecycer);
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
+        recyclerView = (RecyclerView) view.findViewById(R.id.MeiZiRecycer);
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        MeiziAdapter meiziAdapter =new MeiziAdapter(mlist);
-        recyclerView.setAdapter(meiziAdapter);
+
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        MeiziAdapter meiziAdapter =new MeiziAdapter(mlist,getActivity().getBaseContext());
+        recyclerView.setAdapter(meiziAdapter);
+
     }
 }
