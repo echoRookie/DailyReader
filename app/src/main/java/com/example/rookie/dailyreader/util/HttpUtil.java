@@ -1,16 +1,39 @@
 package com.example.rookie.dailyreader.util;
 
+import android.util.Log;
+
+import com.example.rookie.dailyreader.gson.DuanziGson;
 import com.example.rookie.dailyreader.gson.MeiziGson;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Random;
+
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by rookie on 2017/5/16.
  */
 
 public class HttpUtil {
+
+    public static String getUrl(){
+        StringBuilder meiziApi = new StringBuilder();
+        Random random = new Random();
+        int page=random.nextInt(20)+1;
+        meiziApi.append("http://gank.io/api/data/%E7%A6%8F%E5%88%A9/").append("20").append("/" +page);
+
+        return String.valueOf(meiziApi);
+    }
+
+
     /*连接地址*/
     public  static void  sendOkHttpRequest(String address,okhttp3.Callback callback){
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -27,4 +50,7 @@ public class HttpUtil {
         }
         return null;
     }
+    /*连接段子数据返回段子数据*/
+
+
 }

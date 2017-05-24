@@ -58,6 +58,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.ViewHolder> 
         });
         Glide.with(mcontext).load(mlist.get(position)).into(holder.MeiziImage);
 
+
     }
 
     @Override

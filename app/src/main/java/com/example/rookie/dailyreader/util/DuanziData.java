@@ -1,0 +1,35 @@
+package com.example.rookie.dailyreader.util;
+
+/**
+ * Created by rookie on 2017/5/23.
+ */
+
+public class DuanziData {
+    private String duanzitext;
+    private String username;
+    private String usericon;
+
+    public String getDuanzitext() {
+        return duanzitext;
+    }
+
+    public void setDuanzitext(String duanzitext) {
+        this.duanzitext = duanzitext;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsericon() {
+        return usericon;
+    }
+
+    public void setUsericon(String usericon) {
+        this.usericon = usericon;
+    }
+}
