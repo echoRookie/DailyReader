@@ -50,7 +50,19 @@ public class HttpUtil {
         }
         return null;
     }
-    /*连接段子数据返回段子数据*/
+    /*生成文章详情页的地址链接*/
+    public static String getNewsUrl(String id){
+        StringBuilder newsDetailApi = new StringBuilder();
 
+        newsDetailApi.append("http://news-at.zhihu.com/api/4/news/").append(id);
+
+        return String.valueOf(newsDetailApi);
+    }
+    /*获取前几天的知乎日报消息*/
+    public static  String getBeforeNews(Integer count){
+        StringBuilder newsBeforeApi = new StringBuilder();
+        newsBeforeApi.append("http://news.at.zhihu.com/api/4/news/before/").append(DateUtil.getDateNow(count));
+        return String.valueOf(newsBeforeApi);
+    }
 
 }

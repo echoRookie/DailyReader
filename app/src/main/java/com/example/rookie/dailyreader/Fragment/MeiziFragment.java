@@ -1,10 +1,9 @@
-package com.example.rookie.dailyreader.Fragment;
+package com.example.rookie.dailyreader.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -12,14 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.rookie.dailyreader.Adapter.MeiziAdapter;
+import com.example.rookie.dailyreader.adapter.MeiziAdapter;
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.gson.MeiziGson;
 import com.example.rookie.dailyreader.util.HttpUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -34,17 +32,20 @@ public class MeiziFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private MeiziAdapter meiziAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mlist= getArguments().getStringArrayList("imageurl");
+
         View  view = inflater.inflate(R.layout.meizi_layout,container,false);
         recyclerView = (RecyclerView) view.findViewById(R.id.MeiZiRecycer);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.MeiziSwipeRefresh);
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        meiziAdapter =new MeiziAdapter(mlist,getActivity().getApplicationContext());
-        recyclerView.setAdapter(meiziAdapter);
         swipeRefreshLayout.setColorSchemeResources(R.color.primary_material_light_1);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -61,6 +62,13 @@ public class MeiziFragment extends Fragment {
 
             }
         });
+        mlist= getArguments().getStringArrayList("imageurl");
+        meiziAdapter =new MeiziAdapter(mlist,getContext());
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(meiziAdapter);
+
+
 
         return view;
     }

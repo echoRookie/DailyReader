@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="primary_material_light_1">#4caf50</color>
     <color name="tab_text_select">#1296db</color>
+    <color name="text_color">#FFFFFF</color>
 </resources>

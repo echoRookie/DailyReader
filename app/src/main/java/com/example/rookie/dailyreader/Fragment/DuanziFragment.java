@@ -1,4 +1,4 @@
-package com.example.rookie.dailyreader.Fragment;
+package com.example.rookie.dailyreader.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.rookie.dailyreader.Adapter.DuanziAdapter;
+import com.example.rookie.dailyreader.adapter.DuanziAdapter;
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.gson.DuanziGson;
 import com.example.rookie.dailyreader.util.DuanziData;

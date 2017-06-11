@@ -1,7 +1,9 @@
-package com.example.rookie.dailyreader.Adapter;
+package com.example.rookie.dailyreader.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.rookie.dailyreader.MainActivity;
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.activity.MeiziDetialActivity;
-import com.example.rookie.dailyreader.gson.MeiziGson;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by rookie on 2017/5/17.
@@ -46,6 +45,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+        Glide.with(mcontext).load(mlist.get(position)).into(holder.MeiziImage);
         holder.MeiziImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.ViewHolder> 
                 mcontext.startActivity(intent);
             }
         });
-        Glide.with(mcontext).load(mlist.get(position)).into(holder.MeiziImage);
+
 
 
     }

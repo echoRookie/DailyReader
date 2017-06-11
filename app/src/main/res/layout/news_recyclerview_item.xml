@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/news_recycler_title"
+            android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="16dp"
+            android:layout_height="60dp" />
+        <ImageView
+            android:layout_marginRight="16dp"
+            android:id="@+id/news_recycler_image"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
+            android:background="@drawable/nav_header_icon"/>
+    </LinearLayout>
+
+</LinearLayout>
