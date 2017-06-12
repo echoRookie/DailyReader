@@ -134,23 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-        HttpUtil.sendOkHttpRequest(HttpUtil.getUrl(), new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                MeiziGson meiziGson =HttpUtil.handleMeiziResponse(response.body().string());
-                imageUrl= new ArrayList<String>();
-                for (int i=0;i<meiziGson.MeiziList.size();i++){
-                    imageUrl.add(meiziGson.MeiziList.get(i).url);
-                }
-                Log.d("mm",meiziGson.MeiziList.get(0).url+"长度为"+imageUrl.size());
-                Log.d("mmm","长度为"+imageUrl.size());
-            }
-        });
         fm = getSupportFragmentManager();
 
         tabLayout = (TabLayout) findViewById(R.id.MainTab);
@@ -171,9 +154,6 @@ public class MainActivity extends AppCompatActivity {
                 if (tab.getPosition()==0){
                     if(meiziFragment==null){
                     meiziFragment = new MeiziFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putStringArrayList("imageurl",imageUrl);
-                    meiziFragment.setArguments(bundle);
                     fragmentTransaction.add(R.id.MainContent,meiziFragment);}
                     fragmentTransaction.show(meiziFragment);
                     Log.d("select","aaaaa");

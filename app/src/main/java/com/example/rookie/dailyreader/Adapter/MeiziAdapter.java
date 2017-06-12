@@ -45,6 +45,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+
         Glide.with(mcontext).load(mlist.get(position)).into(holder.MeiziImage);
         holder.MeiziImage.setOnClickListener(new View.OnClickListener() {
             @Override

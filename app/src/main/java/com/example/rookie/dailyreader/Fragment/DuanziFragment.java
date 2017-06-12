@@ -44,37 +44,37 @@ public class DuanziFragment extends Fragment {
         Bundle bundle = getArguments();
         String data = bundle.getString("duanzidata");
         Log.d("uuu", ""+data);
-        try {
-            JSONObject jsonObject = new JSONObject(data);
-            JSONObject jsonObject1= new JSONObject(jsonObject.getString("data"));
-            DuanziGson duanziGson = new Gson().fromJson(jsonObject1.toString(),DuanziGson.class);
+        if(data!=null) {
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+                JSONObject jsonObject1 = new JSONObject(jsonObject.getString("data"));
+                DuanziGson duanziGson = new Gson().fromJson(jsonObject1.toString(), DuanziGson.class);
 
-            int length = duanziGson.dataInfos.size();
-            Log.d("zzzz", "onResponse: "+length);
-            int i=0;
-            while(i<length){
+                int length = duanziGson.dataInfos.size();
+                Log.d("zzzz", "onResponse: " + length);
+                int i = 0;
+                while (i < length) {
 
 
-                if(null==duanziGson.dataInfos.get(i).groupData){
-                    i++;
+                    if (null == duanziGson.dataInfos.get(i).groupData) {
+                        i++;
+
+                    } else {
+                        DuanziData duanziData = new DuanziData();
+                        duanziData.setDuanzitext(duanziGson.dataInfos.get(i).groupData.text);
+                        duanziData.setUsername(duanziGson.dataInfos.get(i).groupData.user.username);
+                        duanziData.setUsericon(duanziGson.dataInfos.get(i).groupData.user.icon);
+                        DuanziList.add(duanziData);
+                        Log.d("zzzzzzz", "onResponse: " + i + duanziGson.dataInfos.get(i).groupData.text);
+                        i++;
+                    }
 
                 }
-                else {
-                    DuanziData duanziData = new DuanziData();
-                    duanziData.setDuanzitext(duanziGson.dataInfos.get(i).groupData.text);
-                    duanziData.setUsername(duanziGson.dataInfos.get(i).groupData.user.username);
-                    duanziData.setUsericon(duanziGson.dataInfos.get(i).groupData.user.icon);
-                    DuanziList.add(duanziData);
-                    Log.d("zzzzzzz", "onResponse: "+i+duanziGson.dataInfos.get(i).groupData.text);
-                    i++;
-                }
-
+                Log.d("zzzzzzzzzzzzz", "onResponse: " + DuanziList.size());
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            Log.d("zzzzzzzzzzzzz", "onResponse: "+DuanziList.size());
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-
         View view = inflater.inflate(R.layout.duanzi_layout,container,false);
         recyclerView = (RecyclerView) view.findViewById(R.id.DuanziRecycer);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -88,7 +88,7 @@ public class DuanziFragment extends Fragment {
             public void onRefresh() {
                    Refresh();
                 if(dataLenght>0) {
-                    getActivity().runOnUiThread(new Runnable() {
+                    recyclerView.post(new Runnable() {
                         @Override
                         public void run() {
                             duanziAdapter.notifyDataSetChanged();
@@ -116,39 +116,39 @@ public class DuanziFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String  datainfo = response.body().string();
-                try {
-                    JSONObject jsonObject = new JSONObject(datainfo);
-                    JSONObject jsonObject1= new JSONObject(jsonObject.getString("data"));
-                    DuanziGson duanziGson = new Gson().fromJson(jsonObject1.toString(),DuanziGson.class);
+                if (datainfo!=null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(datainfo);
+                        JSONObject jsonObject1 = new JSONObject(jsonObject.getString("data"));
+                        DuanziGson duanziGson = new Gson().fromJson(jsonObject1.toString(), DuanziGson.class);
 
-                    int length = duanziGson.dataInfos.size();
-                    dataLenght = length;
-                    Log.d("zzzz", "onResponse: "+length);
-                    int i=0;
-                    DuanziList.clear();
-                    while(i<length){
+                        int length = duanziGson.dataInfos.size();
+                        dataLenght = length;
+                        Log.d("zzzz", "onResponse: " + length);
+                        int i = 0;
+                        DuanziList.clear();
+                        while (i < length) {
 
 
-                        if(null==duanziGson.dataInfos.get(i).groupData){
-                            i++;
+                            if (null == duanziGson.dataInfos.get(i).groupData) {
+                                i++;
+
+                            } else {
+                                DuanziData duanziData = new DuanziData();
+                                duanziData.setDuanzitext(duanziGson.dataInfos.get(i).groupData.text);
+                                duanziData.setUsername(duanziGson.dataInfos.get(i).groupData.user.username);
+                                duanziData.setUsericon(duanziGson.dataInfos.get(i).groupData.user.icon);
+                                DuanziList.add(duanziData);
+                                Log.d("zzzzzzz", "onResponse: " + i + duanziGson.dataInfos.get(i).groupData.text);
+                                i++;
+                            }
 
                         }
-                        else {
-                            DuanziData duanziData = new DuanziData();
-                            duanziData.setDuanzitext(duanziGson.dataInfos.get(i).groupData.text);
-                            duanziData.setUsername(duanziGson.dataInfos.get(i).groupData.user.username);
-                            duanziData.setUsericon(duanziGson.dataInfos.get(i).groupData.user.icon);
-                            DuanziList.add(duanziData);
-                            Log.d("zzzzzzz", "onResponse: "+i+duanziGson.dataInfos.get(i).groupData.text);
-                            i++;
-                        }
-
+                        Log.d("zzzzzzzzzzzzz", "onResponse: " + DuanziList.size());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    Log.d("zzzzzzzzzzzzz", "onResponse: "+DuanziList.size());
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-
 
             }
         });

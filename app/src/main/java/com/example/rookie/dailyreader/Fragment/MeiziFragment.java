@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -32,6 +33,7 @@ public class MeiziFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private MeiziAdapter meiziAdapter;
+    private ArrayList<String> imageUrl = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,34 +44,45 @@ public class MeiziFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+         HttpUtil.sendOkHttpRequest(HttpUtil.getUrl(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
 
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                MeiziGson meiziGson =HttpUtil.handleMeiziResponse(response.body().string());
+                for (int i=0;i<meiziGson.MeiziList.size();i++){
+                    imageUrl.add(meiziGson.MeiziList.get(i).url);
+                }
+                Log.d("hhhhh",meiziGson.MeiziList.get(0).url+"长度为"+imageUrl.size());
+                Log.d("hhhhhhhh","长度为"+imageUrl.size());
+            }
+        });
         View  view = inflater.inflate(R.layout.meizi_layout,container,false);
         recyclerView = (RecyclerView) view.findViewById(R.id.MeiZiRecycer);
+        meiziAdapter =new MeiziAdapter(imageUrl,getContext());
+        GridLayoutManager manager = new GridLayoutManager(getContext(),2);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(meiziAdapter);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.MeiziSwipeRefresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.primary_material_light_1);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshMeizi();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        meiziAdapter.notifyDataSetChanged();
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                });
+               recyclerView.post(new Runnable() {
+                   @Override
+                   public void run() {
+                       swipeRefreshLayout.setRefreshing(false);
+                       meiziAdapter.notifyDataSetChanged();
+                   }
+               });
 
 
             }
         });
-        mlist= getArguments().getStringArrayList("imageurl");
-        meiziAdapter =new MeiziAdapter(mlist,getContext());
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(meiziAdapter);
-
-
-
         return view;
     }
 
@@ -78,6 +91,7 @@ public class MeiziFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
     }
+    /*刷新事件*/
     public void refreshMeizi(){
         new Thread(new Runnable() {
             @Override
@@ -92,15 +106,14 @@ public class MeiziFragment extends Fragment {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         MeiziGson meiziGson =HttpUtil.handleMeiziResponse(response.body().string());
-                       if(mlist!=null){
-                          mlist.clear();
+                       if(imageUrl!=null){
+                          imageUrl.clear();
                        }
 
                         for (int i=0;i<meiziGson.MeiziList.size();i++){
-                            mlist.add(meiziGson.MeiziList.get(i).url);
+                            imageUrl.add(meiziGson.MeiziList.get(i).url);
                         }
-                        Log.d("mmmmm",meiziGson.MeiziList.get(0).url+"长度为aaaaaa"+mlist.size());
-                        Log.d("mmm","长度为"+mlist.size());
+
                     }
                 });
 

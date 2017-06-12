@@ -7,6 +7,7 @@
     android:layout_margin="5dp"
     app:cardCornerRadius="5dp" >
     <ImageView
+        android:background="@color/text_color"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/meizi_item_image"

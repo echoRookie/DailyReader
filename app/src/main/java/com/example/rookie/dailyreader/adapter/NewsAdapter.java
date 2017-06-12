@@ -1,6 +1,7 @@
 package com.example.rookie.dailyreader.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.rookie.dailyreader.R;
+import com.example.rookie.dailyreader.activity.NewsDetialActivity;
 import com.example.rookie.dailyreader.bean.ViewPagerItem;
 
 import java.util.ArrayList;
@@ -36,7 +38,17 @@ public class NewsAdapter extends RecyclerView.Adapter <NewsAdapter.MyViewHolder>
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ViewPagerItem viewPagerItem = myList.get(position);
+        final String newsId = viewPagerItem.getId();
         holder.textView.setText(viewPagerItem.getTitle());
+        holder.textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(myContext, NewsDetialActivity.class);
+                intent.putExtra("newsId",newsId);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                myContext.startActivity(intent);
+            }
+        });
         Glide.with(myContext).load(viewPagerItem.getImageUrl()).into(holder.imageView);
 
     }
