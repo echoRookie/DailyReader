@@ -1,9 +1,7 @@
 package com.example.rookie.dailyreader.activity;
 
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,41 +21,17 @@ import okhttp3.Response;
 
 public class NewsDetialActivity extends AppCompatActivity {
     private ImageView imageView;
-    private Toolbar toolbar;
-    private WebView webView;
-    private CollapsingToolbarLayout collapsingToolbarLayout;
     private NewsInfoGson newsInfoGson;
-
+    private WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String newsId = getIntent().getStringExtra("newsId");
-        Log.d("fffffffff", "onCreate: "+newsId);
-        HttpUtil.sendOkHttpRequest(HttpUtil.getNewsUrl(newsId), new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String newsData = response.body().string();
-                Log.d("llllllllllll", "onResponse: "+newsData);
-                newsInfoGson = new Gson().fromJson(newsData,NewsInfoGson.class);
-                Log.d("llll", "onResponse: "+newsInfoGson.body);
-                Log.d("lllll", "onResponse: "+newsInfoGson.id);
-                Log.d("llllll", "onResponse: "+newsInfoGson.image);
-                Log.d("lllllll", "onResponse: "+newsInfoGson.section.id);
-                Log.d("llllllll", "onResponse: "+newsInfoGson.section.name);
-            }
-        });
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_detail);
+        String newsId = getIntent().getStringExtra("newsId");
+        Log.d("ppp", "onCreate: "+newsId);
         imageView = (ImageView) findViewById(R.id.news_detail_image);
-        Glide.with(this).load(newsInfoGson.image).into(imageView);
-        toolbar = (Toolbar) findViewById(R.id.news_detail_toolbar);
+
         webView = (WebView) findViewById(R.id.news_detail_webview);
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.news_detail_collapsing);
-        setSupportActionBar(toolbar);
         webView.setScrollbarFadingEnabled(true);
 
         //能够和js交互
@@ -79,34 +53,56 @@ public class NewsDetialActivity extends AppCompatActivity {
         //开启application Cache功能
 
         webView.getSettings().setAppCacheEnabled(false);
-        String result = newsInfoGson.body;
-        result = result.replace("<div class=\"img-place-holder\">", "");
-
-        result = result.replace("<div class=\"headline\">", "");
-
-
-        String css = "<link rel=\"stylesheet\" href=\"file:///android_asset/zhihu_daily.css\" type=\"text/css\">";
-        String theme = "<body className=\"\" onload=\"onLoaded()\">";
-        result = "<!DOCTYPE html>\n"
-
-                + "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-
-                + "<head>\n"
-
-                + "\t<meta charset=\"utf-8\" />"
-
-                + css
-
-                + "\n</head>\n"
-
-                + theme
-
-                + result
-
-                + "</body></html>";
+        HttpUtil.sendOkHttpRequest(HttpUtil.getNewsUrl(newsId), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
 
 
+            }
 
-        webView.loadDataWithBaseURL("x-data://base", result,"text/html","utf-8",null);
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                  String data = response.body().string();
+                  newsInfoGson = new Gson().fromJson(data,NewsInfoGson.class);
+                  String result = newsInfoGson.body;
+                result = result.replace("<div class=\"img-place-holder\">", "");
+
+                result = result.replace("<div class=\"headline\">", "");
+
+
+                String css = "<link rel=\"stylesheet\" href=\"file:///android_asset/zhihu_daily.css\" type=\"text/css\">";
+                String theme = "<body className=\"\" onload=\"onLoaded()\">";
+                result = "<!DOCTYPE html>\n"
+
+                        + "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+
+                        + "<head>\n"
+
+                        + "\t<meta charset=\"utf-8\" />"
+
+                        + css
+
+                        + "\n</head>\n"
+
+                        + theme
+
+                        + result
+
+                        + "</body></html>";
+
+
+                final String finalResult = result;
+                runOnUiThread(new Runnable() {
+                      @Override
+                      public void run() {
+                           Glide.with(getApplicationContext()).load(newsInfoGson.image).into(imageView);
+                          webView.loadDataWithBaseURL("x-data://base", finalResult,"text/html","utf-8",null);
+                      }
+                  });
+
+            }
+        });
+
+
     }
 }

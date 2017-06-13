@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private NewsFragment newsFragment;
     private ArrayList<String> viewPagerImageUrl;
     private ArrayList<String> viewPagerText;
+    private ArrayList<String> viewPagerId;
     private FragmentManager fm;
     private FragmentTransaction fragmentTransaction;
     @Override
@@ -80,9 +81,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("bbbbbbbb", "onResponse: "+newsGson.myStorys.get(4).title);
                 viewPagerImageUrl = new ArrayList<String>();
                 viewPagerText = new ArrayList<String>();
+                viewPagerId = new ArrayList<String>();
                 for(int i=0; i<newsGson.myStorys.size();i++){
                     viewPagerImageUrl.add(newsGson.myStorys.get(i).image);
                     viewPagerText.add(newsGson.myStorys.get(i).title);
+                    viewPagerId.add(newsGson.myStorys.get(i).id);
                 }
 
             }
@@ -174,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putStringArrayList("imageUrl",viewPagerImageUrl);
                     bundle.putStringArrayList("title",viewPagerText);
+                    bundle.putStringArrayList("id",viewPagerId);
                     bundle.putString("recyclerData",newsData);
                     newsFragment.setArguments(bundle);
                     fragmentTransaction.add(R.id.MainContent,newsFragment);}
