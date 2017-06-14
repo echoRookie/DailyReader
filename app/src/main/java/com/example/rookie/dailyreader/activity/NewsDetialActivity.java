@@ -1,8 +1,12 @@
 package com.example.rookie.dailyreader.activity;
 
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -23,6 +27,8 @@ public class NewsDetialActivity extends AppCompatActivity {
     private ImageView imageView;
     private NewsInfoGson newsInfoGson;
     private WebView webView;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +36,14 @@ public class NewsDetialActivity extends AppCompatActivity {
         String newsId = getIntent().getStringExtra("newsId");
         Log.d("ppp", "onCreate: "+newsId);
         imageView = (ImageView) findViewById(R.id.news_detail_image);
-
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.news_detail_collapsing);
+        toolbar = (Toolbar) findViewById(R.id.news_detail_toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar!=null){
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         webView = (WebView) findViewById(R.id.news_detail_webview);
         webView.setScrollbarFadingEnabled(true);
 
@@ -95,7 +108,9 @@ public class NewsDetialActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                       @Override
                       public void run() {
-                           Glide.with(getApplicationContext()).load(newsInfoGson.image).into(imageView);
+                          collapsingToolbarLayout.setTitle(newsInfoGson.title);
+                          toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_color));
+                          Glide.with(getApplicationContext()).load(newsInfoGson.image).into(imageView);
                           webView.loadDataWithBaseURL("x-data://base", finalResult,"text/html","utf-8",null);
                       }
                   });
@@ -104,5 +119,15 @@ public class NewsDetialActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -13,6 +13,7 @@
             android:id="@+id/news_detail_collapsing"
             android:layout_width="match_parent"
             android:layout_height="240dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentScrim="@color/primary_material_light_1"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways">
             <ImageView
@@ -23,10 +24,14 @@
                 android:background="@drawable/nav_header_icon"
                 android:scaleType="centerCrop"/>
             <android.support.v7.widget.Toolbar
+                android:titleMarginEnd="100dp"
                 app:layout_collapseMode="pin"
                 android:id="@+id/news_detail_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+                android:layout_height="?attr/actionBarSize"
+                android:titleTextColor="@color/toolbar_color"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                >
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

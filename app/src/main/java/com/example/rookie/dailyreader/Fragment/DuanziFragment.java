@@ -81,6 +81,7 @@ public class DuanziFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.DuanziSwipeRefresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.primary_material_light_1);
         duanziAdapter = new DuanziAdapter(DuanziList,getContext());
         recyclerView.setAdapter(duanziAdapter);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -109,8 +110,14 @@ public class DuanziFragment extends Fragment {
             HttpUtil.sendOkHttpRequest("http://is.snssdk.com/neihan/stream/mix/v1/?mpic=1&webp=1&essence=1&content_type=-102&message_cursor=-1&am_longitude=110&am_latitude=120&am_city=%E5%8C%97%E4%BA%AC%E5%B8%82&am_loc_time=1489226058493&count=30&min_time=1489205901&screen_width=1450&do00le_col_mode=0&iid=3216590132&device_id=32613520945&ac=wifi&channel=360&aid=7&app_name=joke_essay&version_code=612&version_name=6.1.2&device_platform=android&ssmix=a&device_type=sansung&device_brand=xiaomi&os_api=28&os_version=6.10.1&uuid=326135942187625&openudid=3dg6s95rhg2a3dg5&manifest_version_code=612&resolution=1450*2800&dpi=620&update_version_code=6120", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Toast.makeText(getContext(),"刷新失败",Toast.LENGTH_SHORT).show();
-                swipeRefreshLayout.setRefreshing(false);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(),"刷新失败，请检查网络环境",Toast.LENGTH_SHORT).show();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+
             }
 
             @Override

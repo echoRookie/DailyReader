@@ -1,17 +1,24 @@
 package com.example.rookie.dailyreader;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rookie.dailyreader.fragment.DuanziFragment;
 import com.example.rookie.dailyreader.fragment.MeiziFragment;
@@ -38,6 +45,8 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     private String TabTextList[] = new String[]{"妹子","段子","趣闻"};
     private Integer TabImage[] = new Integer[]{R.drawable.tab_meizi,R.drawable.tab_news,R.drawable.tab_joker};
     private Integer TabImageSelect[] = new Integer[]{R.drawable.tab_meizi_select,R.drawable.tab_news_select,R.drawable.tab_joker_select};
@@ -53,13 +62,37 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> viewPagerId;
     private FragmentManager fm;
     private FragmentTransaction fragmentTransaction;
+    private long mExitTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        drawerLayout = (DrawerLayout) findViewById(R.id.MyDrawerLayout);
+        navigationView = (NavigationView) findViewById(R.id.MyNavView);
         toolbar = (Toolbar) findViewById(R.id.MyToolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("DailyReader");
+        toolbar.setNavigationIcon(R.drawable.home_menu);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_setting:
+                        Toast.makeText(navigationView.getContext(),"setting",Toast.LENGTH_SHORT).show();
+                    case R.id.nav_about:
+                        Toast.makeText(navigationView.getContext(),"about",Toast.LENGTH_SHORT).show();
+                    case R.id.nav_collection:
+                        Toast.makeText(navigationView.getContext(),"collection",Toast.LENGTH_SHORT).show();
+                }
+                return  true;
+            }
+        });
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
         HttpUtil.sendOkHttpRequest("http://news-at.zhihu.com/api/4/news/latest", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -232,5 +265,20 @@ public class MainActivity extends AppCompatActivity {
         imageView.setImageResource(TabImage[position]);
         textView.setText(TabTextList[position]);
         return view;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            if(System.currentTimeMillis()-mExitTime>2000){
+                Toast.makeText(this,"再按一次退出程序",Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            }
+            else {
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

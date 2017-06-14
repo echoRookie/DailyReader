@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.rookie.dailyreader.adapter.MeiziAdapter;
 import com.example.rookie.dailyreader.R;
@@ -100,6 +101,13 @@ public class MeiziFragment extends Fragment {
                 HttpUtil.sendOkHttpRequest(HttpUtil.getUrl(), new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getContext(),"刷新失败,请检查网络环境",Toast.LENGTH_SHORT).show();
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
+                        });
 
                     }
 
