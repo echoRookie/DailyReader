@@ -32,28 +32,38 @@
 
             android:src="@drawable/nav_header_icon"
 
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical"
 
             />
 
 
 
         <TextView
-
+            android:layout_weight="1"
             android:id="@+id/duanzi_user_name"
 
             android:paddingLeft="8dp"
 
             android:paddingStart="8dp"
 
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
 
             android:layout_height="16dp"
 
             android:text="杨军"
 
             android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@id/duanzi_user_icon"
 
+            />
+        <ImageView
+            android:id="@+id/duanzi_collection"
+            android:background="@drawable/nav_menu_collection"
+            android:layout_gravity="center_vertical"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="8dp"
             />
 
 

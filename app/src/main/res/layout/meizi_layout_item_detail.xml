@@ -46,15 +46,25 @@
 
 
 
-    <ImageView
+    <LinearLayout
 
         android:layout_width="match_parent"
 
         android:layout_height="0dp"
 
         android:layout_weight="0.2"
-
-        />
+        android:orientation="vertical"
+        >
+        <TextView
+            android:textSize="16sp"
+            android:layout_marginTop="36dp"
+            android:layout_marginRight="24dp"
+            android:text="@string/meizi_detail_text"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"/>
+    </LinearLayout>
 
 
 

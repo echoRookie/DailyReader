@@ -4,5 +4,15 @@
     <string name="nav_setting">设置</string>
     <string name="nav_about">关于</string>
     <string name="nav_collection">收藏</string>
-
+    <string name="about_text">剑还没准备好，出门就是江湖</string>
+    <string name="about_title">我的信息</string>
+    <string name="about_profession">所在职业</string>
+    <string name="about_profession_detial">软件工程</string>
+    <string name="about_school">所在学校</string>
+    <string name="about_school_detial">长沙理工大学</string>
+    <string name="about_github">GitHub关注我</string>
+    <string name="about_github_detial">https://github.com/echoRookie</string>
+    <string name="about_name">个人昵称</string>
+    <string name="about_name_detial">Rookie</string>
+    <string name="meizi_detail_text">收藏</string>
 </resources>
