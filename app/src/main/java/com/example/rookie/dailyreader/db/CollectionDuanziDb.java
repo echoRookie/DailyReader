@@ -2,15 +2,26 @@ package com.example.rookie.dailyreader.db;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.Date;
+
 /**
- * Created by rookie on 2017/5/23.
+ * Created by rookie on 2017/6/15.
  */
 
-public class DuanziDb extends DataSupport{
+public class CollectionDuanziDb extends DataSupport{
     private int id;
     private String text;
     private String username;
     private String usericon;
+    private Date saveDate;
+
+    public Date getSaveDate() {
+        return saveDate;
+    }
+
+    public void setSaveDate(Date saveDate) {
+        this.saveDate = saveDate;
+    }
 
     public int getId() {
         return id;

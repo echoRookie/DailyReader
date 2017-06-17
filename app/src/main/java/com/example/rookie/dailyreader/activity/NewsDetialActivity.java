@@ -1,15 +1,18 @@
 package com.example.rookie.dailyreader.activity;
 
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.rookie.dailyreader.R;
@@ -29,12 +32,15 @@ public class NewsDetialActivity extends AppCompatActivity {
     private WebView webView;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private Toolbar toolbar;
+    private FloatingActionButton floatingActionButton;
+    private boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_detail);
         String newsId = getIntent().getStringExtra("newsId");
         Log.d("ppp", "onCreate: "+newsId);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.news_detail_floatbutton);
         imageView = (ImageView) findViewById(R.id.news_detail_image);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.news_detail_collapsing);
         toolbar = (Toolbar) findViewById(R.id.news_detail_toolbar);
@@ -117,7 +123,21 @@ public class NewsDetialActivity extends AppCompatActivity {
 
             }
         });
+       /*floatbutton的按钮点击事件*/
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(flag == false){
+                    floatingActionButton.setImageResource(R.drawable.github);
+                flag = true;
+                Toast.makeText(NewsDetialActivity.this,"已收藏",Toast.LENGTH_SHORT).show();}
+                else {
+                    floatingActionButton.setImageResource(R.drawable.news_collection);
+                    flag = false;
+                    Toast.makeText(NewsDetialActivity.this,"收藏已取消",Toast.LENGTH_SHORT).show();}
 
+            }
+        });
 
     }
 

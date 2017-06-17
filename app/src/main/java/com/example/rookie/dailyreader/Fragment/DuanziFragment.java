@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.rookie.dailyreader.adapter.DuanziAdapter;
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.gson.DuanziGson;
-import com.example.rookie.dailyreader.util.DuanziData;
+import com.example.rookie.dailyreader.bean.DuanziData;
 import com.example.rookie.dailyreader.util.HttpUtil;
 import com.google.gson.Gson;
 
@@ -92,6 +92,11 @@ public class DuanziFragment extends Fragment {
                     recyclerView.post(new Runnable() {
                         @Override
                         public void run() {
+                            Boolean[] flags = new Boolean[DuanziList.size()];
+                            for(int i=0;i<DuanziList.size();i++){
+                                flags[i] = false;
+                            }
+                            duanziAdapter.setFlags(flags);
                             duanziAdapter.notifyDataSetChanged();
                             swipeRefreshLayout.setRefreshing(false);
                         }

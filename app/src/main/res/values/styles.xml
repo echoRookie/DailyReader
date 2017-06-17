@@ -13,4 +13,7 @@
         <item name="colorPrimaryDark">@android:color/holo_green_dark</item>
         <item name="colorAccent">@android:color/holo_blue_light</item>
     </style>
+    <style name="TabTextSizeTheme">
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

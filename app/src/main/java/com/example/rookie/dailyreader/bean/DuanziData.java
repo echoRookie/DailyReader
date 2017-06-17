@@ -1,10 +1,10 @@
-package com.example.rookie.dailyreader.util;
+package com.example.rookie.dailyreader.bean;
 
 /**
  * Created by rookie on 2017/5/23.
  */
 
-public class DuanziInfo {
+public class DuanziData {
     private String duanzitext;
     private String username;
     private String usericon;

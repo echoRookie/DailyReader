@@ -29,7 +29,6 @@
                 android:id="@+id/news_detail_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:titleMarginEnd="100dp"
                 app:titleTextColor="@color/toolbar_color"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
@@ -49,11 +48,11 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/news_detail_floatbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/news_collection"
         android:layout_gravity="end|bottom"
-
         android:layout_marginRight="24dp"
         android:layout_marginBottom="24dp"/>
 

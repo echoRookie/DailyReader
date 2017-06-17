@@ -1,0 +1,13 @@
+
+<litepal>
+    <dbname value = "AppStore"/>
+    <version value = "1"/>
+    <list>
+       <mapping class="com.example.rookie.dailyreader.db.CollectionDuanziDb"/>
+        <mapping class="com.example.rookie.dailyreader.db.CollectionMeiziDb"/>
+        <mapping class="com.example.rookie.dailyreader.db.CollectionNewsDb"/>
+        <mapping class="com.example.rookie.dailyreader.db.MeiziDb"/>
+        <mapping class="com.example.rookie.dailyreader.db.DuanziDb"/>
+        <mapping class="com.example.rookie.dailyreader.db.NewsDb"/>
+    </list>
+</litepal>

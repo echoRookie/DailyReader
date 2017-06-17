@@ -22,7 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rookie.dailyreader.activity.AboutActivity;
+import com.example.rookie.dailyreader.activity.MyCollectionActivity;
 import com.example.rookie.dailyreader.activity.MyPreferenceActivity;
+import com.example.rookie.dailyreader.db.CollectionMeiziDb;
 import com.example.rookie.dailyreader.fragment.DuanziFragment;
 import com.example.rookie.dailyreader.fragment.MeiziFragment;
 import com.example.rookie.dailyreader.fragment.NewsFragment;
@@ -30,15 +32,18 @@ import com.example.rookie.dailyreader.gson.DuanziGson;
 import com.example.rookie.dailyreader.gson.NewsRecyclerGson;
 import com.example.rookie.dailyreader.gson.NewsViewPagerGson;
 import com.example.rookie.dailyreader.util.DateUtil;
-import com.example.rookie.dailyreader.util.DuanziData;
+import com.example.rookie.dailyreader.bean.DuanziData;
 import com.example.rookie.dailyreader.util.HttpUtil;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -88,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
                    Toast.makeText(navigationView.getContext(),"setting",Toast.LENGTH_SHORT).show();
                }
                 if(item.getItemId()==R.id.nav_collection){
+                    drawerLayout.closeDrawers();
+                    Intent intent = new Intent(MainActivity.this, MyCollectionActivity.class);
+                    startActivity(intent);
                    Toast.makeText(navigationView.getContext(),"collection",Toast.LENGTH_SHORT).show();
                }
                 if(item.getItemId()==R.id.nav_about) {
@@ -270,7 +278,6 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.addTab(tabLayout.newTab().setCustomView(getView(this, i)));
             }
         }
-        DateUtil.getDateNow(5);
 
 
     }

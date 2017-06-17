@@ -58,7 +58,7 @@
             />
         <ImageView
             android:id="@+id/duanzi_collection"
-            android:background="@drawable/nav_menu_collection"
+            android:src="@drawable/nav_menu_collection"
             android:layout_gravity="center_vertical"
             android:layout_width="24dp"
             android:layout_height="24dp"

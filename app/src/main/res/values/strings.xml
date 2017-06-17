@@ -15,4 +15,6 @@
     <string name="about_name">个人昵称</string>
     <string name="about_name_detial">Rookie</string>
     <string name="meizi_detail_text">收藏</string>
+    <string name="meizi_detail_text_select">已收藏</string>
+    <string name="collection_title">我的收藏</string>
 </resources>

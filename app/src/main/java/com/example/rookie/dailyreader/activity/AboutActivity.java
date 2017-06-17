@@ -19,7 +19,6 @@ public class AboutActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.about_toolbar);
         toolbar.setTitle(R.string.about_title);
         setSupportActionBar(toolbar);
-
         /*显示toolbar自带返回键设置标题*/
         ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null){
