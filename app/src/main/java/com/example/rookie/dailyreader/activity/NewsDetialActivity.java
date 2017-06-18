@@ -16,11 +16,18 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.rookie.dailyreader.R;
+import com.example.rookie.dailyreader.db.CollectionMeiziDb;
+import com.example.rookie.dailyreader.db.CollectionNewsDb;
 import com.example.rookie.dailyreader.gson.NewsInfoGson;
+import com.example.rookie.dailyreader.util.DateUtil;
 import com.example.rookie.dailyreader.util.HttpUtil;
 import com.google.gson.Gson;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -34,11 +41,13 @@ public class NewsDetialActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FloatingActionButton floatingActionButton;
     private boolean flag = false;
+    private String title;
+    private String imageUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_detail);
-        String newsId = getIntent().getStringExtra("newsId");
+        final String newsId = getIntent().getStringExtra("newsId");
         Log.d("ppp", "onCreate: "+newsId);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.news_detail_floatbutton);
         imageView = (ImageView) findViewById(R.id.news_detail_image);
@@ -84,6 +93,10 @@ public class NewsDetialActivity extends AppCompatActivity {
                   String data = response.body().string();
                   newsInfoGson = new Gson().fromJson(data,NewsInfoGson.class);
                   String result = newsInfoGson.body;
+                title = newsInfoGson.title;
+                imageUrl = newsInfoGson.image;
+                Log.d("yyy", "onCreate: "+title);
+                Log.d("yyyyy", "onCreate: "+imageUrl);
                 result = result.replace("<div class=\"img-place-holder\">", "");
 
                 result = result.replace("<div class=\"headline\">", "");
@@ -123,12 +136,19 @@ public class NewsDetialActivity extends AppCompatActivity {
 
             }
         });
+
        /*floatbutton的按钮点击事件*/
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(flag == false){
-                    floatingActionButton.setImageResource(R.drawable.github);
+                    floatingActionButton.setImageResource(R.drawable.collection_selected);
+                    CollectionNewsDb db = new CollectionNewsDb();
+                    db.setNewsId(newsId);
+                    db.setSaveDate(new Date());
+                    db.setTitle(title);
+                    db.setImageUrl(imageUrl);
+                    db.save();
                 flag = true;
                 Toast.makeText(NewsDetialActivity.this,"已收藏",Toast.LENGTH_SHORT).show();}
                 else {

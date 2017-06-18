@@ -62,13 +62,13 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.ViewHolder
         if (flags[position] == false) {
             holder.collectionImage.setImageResource(R.drawable.news_collection);
         } else {
-            holder.collectionImage.setImageResource(R.drawable.github);
+            holder.collectionImage.setImageResource(R.drawable.collection_selected);
         }
         holder.collectionImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (flags[clickPosition] == false) {
-                    holder.collectionImage.setImageResource(R.drawable.github);
+                    holder.collectionImage.setImageResource(R.drawable.collection_selected);
                     flags[clickPosition] = true;
                     Toast.makeText(mcontext, "已收藏", Toast.LENGTH_SHORT).show();
                 } else {
