@@ -1,6 +1,5 @@
 package com.example.rookie.dailyreader.activity;
 
-import android.os.PersistableBundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -12,7 +11,10 @@ import android.view.MenuItem;
 
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.adapter.CollectionAdapter;
-import com.example.rookie.dailyreader.fragment.CollectionFragment;
+import com.example.rookie.dailyreader.adapter.CollectionDuanziAdapter;
+import com.example.rookie.dailyreader.fragment.CollectionDuanziFragment;
+import com.example.rookie.dailyreader.fragment.CollectionMeiziFragment;
+import com.example.rookie.dailyreader.fragment.CollectionNewsFragment;
 
 import java.util.ArrayList;
 
@@ -24,15 +26,22 @@ public class MyCollectionActivity extends AppCompatActivity {
     private ArrayList<Fragment> myFragments;
     private ArrayList<String> mytitles;
     private CollectionAdapter collectionAdapter;
+    private CollectionDuanziFragment collectionDuanziFragment;
+    private CollectionNewsFragment collectionNewsFragment;
+    private CollectionNewsFragment collectionNewsFragment1;
+    private CollectionMeiziFragment collectionMeiziFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.collection_main);
         /*初始化fragment*/
         myFragments = new ArrayList<>();
-        for (int i=0;i<3;i++){
-        CollectionFragment collectionFragment = new CollectionFragment();
-        myFragments.add(collectionFragment);}
+        collectionNewsFragment = new CollectionNewsFragment();
+        collectionMeiziFragment = new CollectionMeiziFragment();
+        collectionDuanziFragment = new CollectionDuanziFragment();
+        myFragments.add(collectionMeiziFragment);
+        myFragments.add(collectionDuanziFragment);
+        myFragments.add(collectionNewsFragment);
         /*初始化Tab标签*/
         mytitles = new ArrayList<>();
         mytitles.add("图片");

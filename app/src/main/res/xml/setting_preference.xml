@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/setting_cate_one">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:title="@string/setting_notification"
+            android:key="switch_notification" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/setting_cate_two">
+      <PreferenceScreen
+          android:title="@string/title_one"
+          android:summary="@string/summary_one">
 
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:title="Check box preference"
-        android:key="check_box_preference_1" />
-    <EditTextPreference
-        android:defaultValue="Default value"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:title="Edit text preference"
-        android:key="edit_text_preference_1" />
-    <SwitchPreference
-        android:defaultValue="false"
-        android:title="Switch preference"
-        android:key="switch_preference_1" />
+      </PreferenceScreen>
+        <PreferenceScreen
+            android:title="@string/title_two"
+            android:summary="@string/summary_two">
+
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/setting_cate_three">
+        <PreferenceScreen
+            android:title="@string/title_three"
+            android:summary="@string/summary_three">
+
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:title="@string/title_four"
+            android:summary="@string/summary_four">
+
+        </PreferenceScreen>
+    </PreferenceCategory>
 </PreferenceScreen>

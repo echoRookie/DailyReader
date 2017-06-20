@@ -22,7 +22,12 @@
         <activity android:name=".activity.NewsDetialActivity" />
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.MyPreferenceActivity" />
-        <activity android:name=".activity.MyCollectionActivity"></activity>
+        <activity android:name=".activity.MyCollectionActivity" />
+
+        <service
+            android:name=".service.NotificationService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

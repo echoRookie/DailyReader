@@ -2,6 +2,7 @@ package com.example.rookie.dailyreader;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -11,7 +12,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.text.BoringLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -31,6 +34,7 @@ import com.example.rookie.dailyreader.fragment.NewsFragment;
 import com.example.rookie.dailyreader.gson.DuanziGson;
 import com.example.rookie.dailyreader.gson.NewsRecyclerGson;
 import com.example.rookie.dailyreader.gson.NewsViewPagerGson;
+import com.example.rookie.dailyreader.service.NotificationService;
 import com.example.rookie.dailyreader.util.DateUtil;
 import com.example.rookie.dailyreader.bean.DuanziData;
 import com.example.rookie.dailyreader.util.HttpUtil;
@@ -75,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*检查默认值确定是否开启通知*/
+        SharedPreferences preferences = android.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean notification = preferences.getBoolean("switch_notification",false);
+        Log.d("yyyyyyyyyy", "onCreate: "+notification);
+        if (notification == true){
+            Intent intent = new Intent(this, NotificationService.class);
+            startService(intent);
+        }
         drawerLayout = (DrawerLayout) findViewById(R.id.MyDrawerLayout);
         navigationView = (NavigationView) findViewById(R.id.MyNavView);
         /*初始化toolbar并设置标题和图标*/
@@ -90,17 +102,14 @@ public class MainActivity extends AppCompatActivity {
                    drawerLayout.closeDrawers();
                    Intent intent = new Intent(MainActivity.this, MyPreferenceActivity.class);
                    startActivity(intent);
-                   Toast.makeText(navigationView.getContext(),"setting",Toast.LENGTH_SHORT).show();
                }
                 if(item.getItemId()==R.id.nav_collection){
                     drawerLayout.closeDrawers();
                     Intent intent = new Intent(MainActivity.this, MyCollectionActivity.class);
                     startActivity(intent);
-                   Toast.makeText(navigationView.getContext(),"collection",Toast.LENGTH_SHORT).show();
                }
                 if(item.getItemId()==R.id.nav_about) {
                     drawerLayout.closeDrawers();
-                   Toast.makeText(navigationView.getContext(),"about",Toast.LENGTH_SHORT).show();
                    Intent intent = new Intent(MainActivity.this,AboutActivity.class);
                    startActivity(intent);
 

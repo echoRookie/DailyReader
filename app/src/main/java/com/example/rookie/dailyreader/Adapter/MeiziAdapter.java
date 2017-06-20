@@ -51,8 +51,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(mcontext, MeiziDetialActivity.class);
-                intent.putExtra("position",position);
-                intent.putExtra("mlist",mlist);
+                intent.putExtra("imageUrl",mlist.get(position));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mcontext.startActivity(intent);
             }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="160dp"
+    android:layout_margin="5dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="5dp" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="8dp"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/collection_meizi_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/news_collection"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/collection_meizi_date"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:text="2017 0619 15.33"
+            android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@id/collection_meizi_icon"
+            />
+        <ImageView
+            android:id="@+id/collection_meizi_delete"
+            android:src="@drawable/collection_delete"
+            android:layout_gravity="center_vertical"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="8dp"
+            />
+    </LinearLayout>
+    <ImageView
+        android:layout_marginTop="40dp"
+        android:src="@drawable/nav_header_icon"
+        android:background="@color/text_color"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/collection_meizi_image"
+        android:scaleType="centerCrop"/>
+</android.support.v7.widget.CardView>

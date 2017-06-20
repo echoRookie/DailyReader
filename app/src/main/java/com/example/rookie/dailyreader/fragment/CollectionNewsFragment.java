@@ -11,9 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rookie.dailyreader.R;
-import com.example.rookie.dailyreader.db.CollectionMeiziDb;
+import com.example.rookie.dailyreader.adapter.CollectionNewAdapter;
 import com.example.rookie.dailyreader.db.CollectionNewsDb;
-import com.example.rookie.dailyreader.myinterface.RecyclerViewScroll;
 
 import org.litepal.crud.DataSupport;
 
@@ -23,13 +22,14 @@ import java.util.List;
  * Created by rookie on 2017/6/16.
  */
 
-public class CollectionFragment extends Fragment{
+public class CollectionNewsFragment extends Fragment{
     private RecyclerView recyclerView;
     private List<CollectionNewsDb> myLists;
+    private CollectionNewAdapter myAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.collction_news,container,false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.collection_news_recycler);
+        View view = inflater.inflate(R.layout.collction_recyclerview,container,false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.collection_recycler);
 
         myLists = DataSupport.findAll(CollectionNewsDb.class);
         Log.d("yyyyyyy", "onCreateView: "+myLists.size());
@@ -42,6 +42,8 @@ public class CollectionFragment extends Fragment{
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
+        myAdapter = new CollectionNewAdapter(myLists,getContext());
+        recyclerView.setAdapter(myAdapter);
         return view;
     }
 }

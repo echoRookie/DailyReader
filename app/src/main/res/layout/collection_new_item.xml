@@ -29,6 +29,13 @@
             android:layout_gravity="center_vertical"
             android:layout_toRightOf="@id/collection_icon"
             />
+        <ImageView
+            android:id="@+id/collection_news_delete"
+            android:layout_marginRight="8dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/collection_delete"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

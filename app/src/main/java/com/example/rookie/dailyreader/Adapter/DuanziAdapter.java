@@ -13,8 +13,12 @@ import com.bumptech.glide.Glide;
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.activity.NewsDetialActivity;
 import com.example.rookie.dailyreader.bean.DuanziData;
+import com.example.rookie.dailyreader.db.CollectionDuanziDb;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -55,7 +59,7 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.ViewHolder
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final int clickPosition = position;
-        DuanziData duanziData = mlist.get(position);
+        final DuanziData duanziData = mlist.get(position);
         Glide.with(mcontext).load(duanziData.getUsericon()).into(holder.circleImageView);
         holder.textViewUserName.setText(duanziData.getUsername());
         holder.textViewContent.setText(duanziData.getDuanzitext());
@@ -70,10 +74,17 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.ViewHolder
                 if (flags[clickPosition] == false) {
                     holder.collectionImage.setImageResource(R.drawable.collection_selected);
                     flags[clickPosition] = true;
+                    CollectionDuanziDb db = new CollectionDuanziDb();
+                    db.setSaveDate(new Date());
+                    db.setText(duanziData.getDuanzitext());
+                    db.setUsername(duanziData.getUsername());
+                    db.setUsericon(duanziData.getUsericon());
+                    db.save();
                     Toast.makeText(mcontext, "已收藏", Toast.LENGTH_SHORT).show();
                 } else {
                     holder.collectionImage.setImageResource(R.drawable.news_collection);
                     flags[clickPosition] = false;
+                    DataSupport.deleteAll(CollectionDuanziDb.class,"text = ? and username = ?",duanziData.getDuanzitext(),duanziData.getUsername());
                     Toast.makeText(mcontext, "收藏已取消", Toast.LENGTH_SHORT).show();
                 }
 

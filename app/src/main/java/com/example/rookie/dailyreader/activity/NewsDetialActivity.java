@@ -1,5 +1,6 @@
 package com.example.rookie.dailyreader.activity;
 
+import android.provider.ContactsContract;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -43,13 +46,33 @@ public class NewsDetialActivity extends AppCompatActivity {
     private boolean flag = false;
     private String title;
     private String imageUrl;
+    private LinearLayout linearLayout;
+    private ImageView smallImage;
+    private TextView section;
+    private ImageView goSection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_detail);
+
         final String newsId = getIntent().getStringExtra("newsId");
+        List<CollectionNewsDb> myLists = DataSupport.where("newsId = ?",newsId).find(CollectionNewsDb.class);
         Log.d("ppp", "onCreate: "+newsId);
+        /*floatingActionButton初始化及默认状态的设置*/
         floatingActionButton = (FloatingActionButton) findViewById(R.id.news_detail_floatbutton);
+        if(myLists.size()>0){
+           /* 如果数据库里查询到已存在，则设置为已收藏。否则相反*/
+            flag = true;
+            floatingActionButton.setImageResource(R.drawable.collection_selected);
+        }
+        else {
+            flag = false;
+            floatingActionButton.setImageResource(R.drawable.news_collection);
+        }
+        linearLayout = (LinearLayout) findViewById(R.id.news_detail_section);
+        smallImage = (ImageView) findViewById(R.id.news_detail_smallImage);
+        section = (TextView) findViewById(R.id.news_detail_newsFrom);
+        goSection =(ImageView) findViewById(R.id.news_detail_goSection);
         imageView = (ImageView) findViewById(R.id.news_detail_image);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.news_detail_collapsing);
         toolbar = (Toolbar) findViewById(R.id.news_detail_toolbar);
@@ -93,6 +116,20 @@ public class NewsDetialActivity extends AppCompatActivity {
                   String data = response.body().string();
                   newsInfoGson = new Gson().fromJson(data,NewsInfoGson.class);
                   String result = newsInfoGson.body;
+                if(newsInfoGson.section != null){
+                Log.d("section", "onResponse: "+newsInfoGson.section.name);
+                Log.d("section", "onResponse: "+newsInfoGson.section.id);
+                Log.d("section", "onResponse: "+newsInfoGson.section.thumbnail);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            linearLayout.setVisibility(View.VISIBLE);
+                            Glide.with(getApplicationContext()).load(newsInfoGson.image).into(smallImage);
+                            section.setText("  本文来自:  "+newsInfoGson.section.name+"  -- 合集");
+                        }
+                    });
+
+                }
                 title = newsInfoGson.title;
                 imageUrl = newsInfoGson.image;
                 Log.d("yyy", "onCreate: "+title);
@@ -152,8 +189,10 @@ public class NewsDetialActivity extends AppCompatActivity {
                 flag = true;
                 Toast.makeText(NewsDetialActivity.this,"已收藏",Toast.LENGTH_SHORT).show();}
                 else {
+
                     floatingActionButton.setImageResource(R.drawable.news_collection);
                     flag = false;
+                    DataSupport.deleteAll(CollectionNewsDb.class,"newsId = ?",newsId);
                     Toast.makeText(NewsDetialActivity.this,"收藏已取消",Toast.LENGTH_SHORT).show();}
 
             }
