@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/news_section_title"
+            android:text="aaaaaaaaaaaaaaaaaaa"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
+            <TextView
+                android:text="6月1日"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="center_vertical"
+                android:textSize="16dp"
+                android:id="@+id/news_section_date"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <ImageView
+            android:layout_marginRight="16dp"
+            android:id="@+id/news_section_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
+            android:background="@drawable/nav_header_icon"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/cardview_dark_background"/>
+
+</LinearLayout>

@@ -64,5 +64,22 @@ public class HttpUtil {
         newsBeforeApi.append("http://news.at.zhihu.com/api/4/news/before/").append(DateUtil.getDateNow(count));
         return String.valueOf(newsBeforeApi);
     }
+    /*生成知乎日报专栏api*/
+    public static String getSectionApi(String id){
+        StringBuilder sectionApi = new StringBuilder();
+
+        sectionApi.append("http://news-at.zhihu.com/api/3/section/").append(id);
+
+        return String.valueOf(sectionApi);
+    }
+    /*获取知乎日报专栏之前的消息*/
+    public static String getSectionBeforeApi(String id,String timestamp){
+        /*timestamp时时间戳，请求之前的数据时需要加上前一个返回数据的时间戳，json对应的属性*/
+        StringBuilder sectionBeforeApi = new StringBuilder();
+
+        sectionBeforeApi.append("http://news-at.zhihu.com/api/3/section/").append(id).append("/before/").append(timestamp);
+
+        return String.valueOf(sectionBeforeApi);
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.rookie.dailyreader.activity;
 
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -126,6 +127,15 @@ public class NewsDetialActivity extends AppCompatActivity {
                             linearLayout.setVisibility(View.VISIBLE);
                             Glide.with(getApplicationContext()).load(newsInfoGson.image).into(smallImage);
                             section.setText("  本文来自:  "+newsInfoGson.section.name+"  -- 合集");
+                            goSection.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(v.getContext(),NewsSectionActivity.class);
+                                    intent.putExtra("sectionName",newsInfoGson.section.name);
+                                    intent.putExtra("sectionId",newsInfoGson.section.id);
+                                    startActivity(intent);
+                                }
+                            });
                         }
                     });
 

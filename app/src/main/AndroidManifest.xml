@@ -28,6 +28,8 @@
             android:name=".service.NotificationService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".activity.NewsSectionActivity"></activity>
     </application>
 
 </manifest>
