@@ -2,12 +2,17 @@ package com.example.rookie.dailyreader.bean;
 
 /**
  * Created by rookie on 2017/6/20.
+ * 专栏内容封装类
  */
 
 public class SectionInfo {
+    //文章图片
     private String imageUrl;
+    //文章id
     private String id;
+    //文章标题
     private String title;
+    //文章发布日期
     private String date;
 
     public String getDate() {

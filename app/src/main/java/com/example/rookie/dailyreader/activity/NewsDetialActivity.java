@@ -51,35 +51,38 @@ public class NewsDetialActivity extends AppCompatActivity {
     private ImageView smallImage;
     private TextView section;
     private ImageView goSection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_detail);
-
+//      接收intent的值传递，并去数据库查询是否存在，设置flag标志的值
+//        true为已收藏，false未收藏
         final String newsId = getIntent().getStringExtra("newsId");
-        List<CollectionNewsDb> myLists = DataSupport.where("newsId = ?",newsId).find(CollectionNewsDb.class);
-        Log.d("ppp", "onCreate: "+newsId);
+        List<CollectionNewsDb> myLists = DataSupport.where("newsId = ?", newsId).find(CollectionNewsDb.class);
+        Log.d("ppp", "onCreate: " + newsId);
         /*floatingActionButton初始化及默认状态的设置*/
         floatingActionButton = (FloatingActionButton) findViewById(R.id.news_detail_floatbutton);
-        if(myLists.size()>0){
+        if (myLists.size() > 0) {
            /* 如果数据库里查询到已存在，则设置为已收藏。否则相反*/
             flag = true;
             floatingActionButton.setImageResource(R.drawable.collection_selected);
-        }
-        else {
+        } else {
             flag = false;
             floatingActionButton.setImageResource(R.drawable.news_collection);
         }
+//        文章合集布局的初始化
         linearLayout = (LinearLayout) findViewById(R.id.news_detail_section);
         smallImage = (ImageView) findViewById(R.id.news_detail_smallImage);
         section = (TextView) findViewById(R.id.news_detail_newsFrom);
-        goSection =(ImageView) findViewById(R.id.news_detail_goSection);
+        goSection = (ImageView) findViewById(R.id.news_detail_goSection);
         imageView = (ImageView) findViewById(R.id.news_detail_image);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.news_detail_collapsing);
+//        toolbar初始化及默认返回键的设置
         toolbar = (Toolbar) findViewById(R.id.news_detail_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar!=null){
+        if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -105,6 +108,7 @@ public class NewsDetialActivity extends AppCompatActivity {
         //开启application Cache功能
 
         webView.getSettings().setAppCacheEnabled(false);
+        //文章详细信息的网络请求
         HttpUtil.sendOkHttpRequest(HttpUtil.getNewsUrl(newsId), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -114,25 +118,26 @@ public class NewsDetialActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                  String data = response.body().string();
-                  newsInfoGson = new Gson().fromJson(data,NewsInfoGson.class);
-                  String result = newsInfoGson.body;
-                if(newsInfoGson.section != null){
-                Log.d("section", "onResponse: "+newsInfoGson.section.name);
-                Log.d("section", "onResponse: "+newsInfoGson.section.id);
-                Log.d("section", "onResponse: "+newsInfoGson.section.thumbnail);
+                String data = response.body().string();
+                newsInfoGson = new Gson().fromJson(data, NewsInfoGson.class);
+                String result = newsInfoGson.body;
+                //判断文章是否来自某个专栏，如果有，则显示相应布局，默认为不显示
+                if (newsInfoGson.section != null) {
+                    Log.d("section", "onResponse: " + newsInfoGson.section.name);
+                    Log.d("section", "onResponse: " + newsInfoGson.section.id);
+                    Log.d("section", "onResponse: " + newsInfoGson.section.thumbnail);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             linearLayout.setVisibility(View.VISIBLE);
                             Glide.with(getApplicationContext()).load(newsInfoGson.image).into(smallImage);
-                            section.setText("  本文来自:  "+newsInfoGson.section.name+"  -- 合集");
+                            section.setText("  本文来自:  " + newsInfoGson.section.name + "  -- 合集");
                             goSection.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent intent = new Intent(v.getContext(),NewsSectionActivity.class);
-                                    intent.putExtra("sectionName",newsInfoGson.section.name);
-                                    intent.putExtra("sectionId",newsInfoGson.section.id);
+                                    Intent intent = new Intent(v.getContext(), NewsSectionActivity.class);
+                                    intent.putExtra("sectionName", newsInfoGson.section.name);
+                                    intent.putExtra("sectionId", newsInfoGson.section.id);
                                     startActivity(intent);
                                 }
                             });
@@ -142,8 +147,9 @@ public class NewsDetialActivity extends AppCompatActivity {
                 }
                 title = newsInfoGson.title;
                 imageUrl = newsInfoGson.image;
-                Log.d("yyy", "onCreate: "+title);
-                Log.d("yyyyy", "onCreate: "+imageUrl);
+                Log.d("yyy", "onCreate: " + title);
+                Log.d("yyyyy", "onCreate: " + imageUrl);
+                // 将文章内容组装成 html网页
                 result = result.replace("<div class=\"img-place-holder\">", "");
 
                 result = result.replace("<div class=\"headline\">", "");
@@ -172,14 +178,14 @@ public class NewsDetialActivity extends AppCompatActivity {
 
                 final String finalResult = result;
                 runOnUiThread(new Runnable() {
-                      @Override
-                      public void run() {
-                          collapsingToolbarLayout.setTitle(newsInfoGson.title);
-                          toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_color));
-                          Glide.with(getApplicationContext()).load(newsInfoGson.image).into(imageView);
-                          webView.loadDataWithBaseURL("x-data://base", finalResult,"text/html","utf-8",null);
-                      }
-                  });
+                    @Override
+                    public void run() {
+                        collapsingToolbarLayout.setTitle(newsInfoGson.title);
+                        toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_color));
+                        Glide.with(getApplicationContext()).load(newsInfoGson.image).into(imageView);
+                        webView.loadDataWithBaseURL("x-data://base", finalResult, "text/html", "utf-8", null);
+                    }
+                });
 
             }
         });
@@ -188,7 +194,7 @@ public class NewsDetialActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag == false){
+                if (flag == false) {
                     floatingActionButton.setImageResource(R.drawable.collection_selected);
                     CollectionNewsDb db = new CollectionNewsDb();
                     db.setNewsId(newsId);
@@ -196,14 +202,15 @@ public class NewsDetialActivity extends AppCompatActivity {
                     db.setTitle(title);
                     db.setImageUrl(imageUrl);
                     db.save();
-                flag = true;
-                Toast.makeText(NewsDetialActivity.this,"已收藏",Toast.LENGTH_SHORT).show();}
-                else {
+                    flag = true;
+                    Toast.makeText(NewsDetialActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
+                } else {
 
                     floatingActionButton.setImageResource(R.drawable.news_collection);
                     flag = false;
-                    DataSupport.deleteAll(CollectionNewsDb.class,"newsId = ?",newsId);
-                    Toast.makeText(NewsDetialActivity.this,"收藏已取消",Toast.LENGTH_SHORT).show();}
+                    DataSupport.deleteAll(CollectionNewsDb.class, "newsId = ?", newsId);
+                    Toast.makeText(NewsDetialActivity.this, "收藏已取消", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -212,7 +219,7 @@ public class NewsDetialActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;

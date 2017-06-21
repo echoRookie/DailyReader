@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Created by rookie on 2017/6/16.
+ * 收藏界面viewpager的主适配器
  */
 
 public class CollectionAdapter extends FragmentPagerAdapter {

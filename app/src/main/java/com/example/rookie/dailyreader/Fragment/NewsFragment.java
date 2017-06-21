@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,12 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.adapter.NewsAdapter;
 import com.example.rookie.dailyreader.adapter.ViewPagerAdapter;
 import com.example.rookie.dailyreader.bean.*;
 import com.example.rookie.dailyreader.gson.NewsRecyclerGson;
+import com.example.rookie.dailyreader.gson.NewsViewPagerGson;
 import com.example.rookie.dailyreader.myinterface.RecyclerViewScroll;
 import com.example.rookie.dailyreader.util.HttpUtil;
 import com.google.gson.Gson;
@@ -40,15 +43,16 @@ public class NewsFragment extends Fragment {
     private ViewPagerAdapter viewPagerAdapter;
     private ArrayList<Fragment> myFragments;
     private Handler handler;
-    private ArrayList<String> viewPagerImageUrl;
-    private ArrayList<String> viewPagerText;
-    private ArrayList<String> viewPagerId;
+    private ArrayList<String> viewPagerImageUrl = new ArrayList<>();
+    private ArrayList<String> viewPagerText = new ArrayList<>();
+    private ArrayList<String> viewPagerId = new ArrayList<>();
     private ArrayList<ViewPagerItem> recyclerList = new ArrayList<>();
     private RecyclerView newsRecyclerView;
     private NewsAdapter newsAdapter;
     private Integer count = 0;
-    private String beforeNews ;
+    private String beforeNews;
     private String beforeNewsOne;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Nullable
     @Override
@@ -59,7 +63,7 @@ public class NewsFragment extends Fragment {
         viewPagerImageUrl = bundle.getStringArrayList("imageUrl");
         viewPagerText = bundle.getStringArrayList("title");
         viewPagerId = bundle.getStringArrayList("id");
-        if (newsData != null&&viewPagerImageUrl!=null&&viewPagerText!=null) {
+        if (newsData != null && viewPagerImageUrl != null && viewPagerText != null) {
             NewsRecyclerGson newsRecyclerGson = new Gson().fromJson(newsData, NewsRecyclerGson.class);
             for (int i = 0; i < newsRecyclerGson.Storys.size(); i++) {
                 ViewPagerItem viewPagerItem = new ViewPagerItem();
@@ -131,7 +135,7 @@ public class NewsFragment extends Fragment {
             linearLayout = (LinearLayout) view.findViewById(R.id.news_linear);
             myFragments = new ArrayList<>();
             for (int i = 0; i < viewPagerImageUrl.size(); i++) {
-                ViewPagerItemFragment viewPagerItemFragment = ViewPagerItemFragment.newInstance(viewPagerImageUrl.get(i), viewPagerText.get(i),viewPagerId.get(i));
+                ViewPagerItemFragment viewPagerItemFragment = ViewPagerItemFragment.newInstance(viewPagerImageUrl.get(i), viewPagerText.get(i), viewPagerId.get(i));
                 myFragments.add(viewPagerItemFragment);
             }
             viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), myFragments);
@@ -185,7 +189,8 @@ public class NewsFragment extends Fragment {
                 }
             }, 6000);
         }
-            return view;
-        }
+
+        return view;
+    }
 
 }

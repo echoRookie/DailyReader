@@ -6,13 +6,19 @@ import java.util.Date;
 
 /**
  * Created by rookie on 2017/6/15.
+ * 数据库新闻收藏信息对应的映射表
  */
 
 public class CollectionNewsDb extends DataSupport{
+    //新闻表的主键，默认自增长
     private int id;
+    //文章id
     private String newsId;
+    //文章标题
     private String title;
+    //文章图片
     private String imageUrl;
+    //存储时间
     private Date saveDate;
 
     public Date getSaveDate() {

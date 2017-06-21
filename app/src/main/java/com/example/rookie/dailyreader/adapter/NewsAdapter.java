@@ -29,6 +29,7 @@ import okhttp3.Response;
 
 /**
  * Created by rookie on 2017/6/11.
+ * 新闻界面的适配器
  */
 
 public class NewsAdapter extends RecyclerView.Adapter <NewsAdapter.MyViewHolder>{
@@ -42,6 +43,7 @@ public class NewsAdapter extends RecyclerView.Adapter <NewsAdapter.MyViewHolder>
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        /*加载recyclerView的子布局*/
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_recyclerview_item,parent,false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return  myViewHolder;
@@ -50,8 +52,9 @@ public class NewsAdapter extends RecyclerView.Adapter <NewsAdapter.MyViewHolder>
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final ViewPagerItem viewPagerItem = myList.get(position);
-
+        //文章标题
         holder.textView.setText(viewPagerItem.getTitle());
+        //文章标题的点击事件，跳转到文章详情页
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +66,7 @@ public class NewsAdapter extends RecyclerView.Adapter <NewsAdapter.MyViewHolder>
                 myContext.startActivity(intent);
             }
         });
+        //加载文章图片
         Glide.with(myContext).load(viewPagerItem.getImageUrl()).into(holder.imageView);
 
     }

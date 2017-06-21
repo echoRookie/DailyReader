@@ -23,6 +23,7 @@ import java.util.List;
 
 /**
  * Created by rookie on 2017/6/19.
+ * 收藏界面美图模块的适配器
  */
 
 public class CollectionMeiziAdapter extends RecyclerView.Adapter <CollectionMeiziAdapter.MyViewHolder> {
@@ -35,6 +36,7 @@ public class CollectionMeiziAdapter extends RecyclerView.Adapter <CollectionMeiz
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        /*加载recyclerView的子布局*/
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.collection_meizi_item,parent,false);
         MyViewHolder viewHolder = new MyViewHolder(view);
         return viewHolder;
@@ -42,8 +44,11 @@ public class CollectionMeiziAdapter extends RecyclerView.Adapter <CollectionMeiz
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
+        //收藏时间
         holder.date.setText(DateUtil.getCollctionDate(myLists.get(position).getSaveDate()));
+        //具体图片内容
         Glide.with(myContext).load(myLists.get(position).getIamgeUrl()).into(holder.imageView);
+        //删除键的点击事件，并从数据库中删除对应的数据
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +57,7 @@ public class CollectionMeiziAdapter extends RecyclerView.Adapter <CollectionMeiz
                 notifyItemRemoved(position);
             }
         });
+        //图片点击跳转到详情页
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

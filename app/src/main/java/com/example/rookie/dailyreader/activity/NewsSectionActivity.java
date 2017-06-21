@@ -95,7 +95,7 @@ public class NewsSectionActivity extends AppCompatActivity {
                 }
             }
         });
-
+        /*向下滑动加载更多的实现*/
         recyclerView.addOnScrollListener(new RecyclerViewScroll(manage) {
             @Override
             public void onLoadMore() {

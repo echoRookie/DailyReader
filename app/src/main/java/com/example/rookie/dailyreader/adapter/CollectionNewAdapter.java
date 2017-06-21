@@ -34,6 +34,7 @@ public class CollectionNewAdapter extends RecyclerView.Adapter<CollectionNewAdap
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        /*加载recyclerView的子布局*/
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.collection_new_item,parent,false);
         MyViewHolder viewHolder = new MyViewHolder(view);
         return  viewHolder;
@@ -42,8 +43,11 @@ public class CollectionNewAdapter extends RecyclerView.Adapter<CollectionNewAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final CollectionNewsDb collectionNewsDb = myLists.get(position);
+        //收藏时间
         holder.date.setText(DateUtil.getCollctionDate(collectionNewsDb.getSaveDate()));
+        //文章标题
         holder.title.setText(collectionNewsDb.getTitle());
+        //删除键的点击事件，并从数据库中删除对应的数据
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +56,7 @@ public class CollectionNewAdapter extends RecyclerView.Adapter<CollectionNewAdap
                 notifyItemRemoved(position);
             }
         });
+        //标题点击跳转到详情页
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +66,7 @@ public class CollectionNewAdapter extends RecyclerView.Adapter<CollectionNewAdap
                 myContext.startActivity(intent);
             }
         });
+        //加载标题对应的图片
         Glide.with(myContext).load(collectionNewsDb.getImageUrl()).into(holder.image);
     }
 

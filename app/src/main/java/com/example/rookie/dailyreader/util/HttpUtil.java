@@ -74,7 +74,7 @@ public class HttpUtil {
     }
     /*获取知乎日报专栏之前的消息*/
     public static String getSectionBeforeApi(String id,String timestamp){
-        /*timestamp时时间戳，请求之前的数据时需要加上前一个返回数据的时间戳，json对应的属性*/
+        /*timestamp时时间戳，请求之前的数据时需要加上前一个返回数据的时间戳，为json对应的属性*/
         StringBuilder sectionBeforeApi = new StringBuilder();
 
         sectionBeforeApi.append("http://news-at.zhihu.com/api/3/section/").append(id).append("/before/").append(timestamp);

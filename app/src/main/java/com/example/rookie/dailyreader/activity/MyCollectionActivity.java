@@ -57,6 +57,7 @@ public class MyCollectionActivity extends AppCompatActivity {
         viewPager.setAdapter(collectionAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabsFromPagerAdapter(collectionAdapter);
+       /* 启用actionbar的默认返回键*/
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){

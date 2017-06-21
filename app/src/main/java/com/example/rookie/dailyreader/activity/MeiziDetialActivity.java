@@ -25,41 +25,44 @@ public class MeiziDetialActivity extends AppCompatActivity {
     private PhotoView photoView;
     private TextView collectionText;
     private Boolean flag = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.meizi_layout_item_detail);
         final String imageUrl = getIntent().getStringExtra("imageUrl");
-        List<CollectionMeiziDb> myLists = DataSupport.where("iamgeUrl = ?",imageUrl).find(CollectionMeiziDb.class);
+//        查找数据库中是否已经收藏，并设置text的相应状态
+        List<CollectionMeiziDb> myLists = DataSupport.where("iamgeUrl = ?", imageUrl).find(CollectionMeiziDb.class);
         photoView = (PhotoView) findViewById(R.id.item_detial);
         collectionText = (TextView) findViewById(R.id.meizi_collection);
         Glide.with(this).load(imageUrl).into(photoView);
-        if(myLists.size()>0){
+        if (myLists.size() > 0) {
             collectionText.setText(R.string.meizi_detail_text_select);
             flag = true;
-        }
-        else {
+        } else {
             collectionText.setText(R.string.meizi_detail_text);
             flag = false;
         }
+//        text点击事件和相应状态的处理
         collectionText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag == false){
+                if (flag == false) {
                     collectionText.setText(R.string.meizi_detail_text_select);
+//                    收藏则数据信息放进数据库
                     flag = true;
                     CollectionMeiziDb db = new CollectionMeiziDb();
                     db.setSaveDate(new Date());
                     db.setIamgeUrl(imageUrl);
                     db.save();
-                    Toast.makeText(MeiziDetialActivity.this,"已收藏",Toast.LENGTH_SHORT).show();
-                }
-                else {
+                    Toast.makeText(MeiziDetialActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
+                } else {
+//                    取消收藏则将数据从数据库删除
                     collectionText.setText(R.string.meizi_detail_text);
                     flag = false;
-                    DataSupport.deleteAll(CollectionMeiziDb.class,"iamgeUrl = ?",imageUrl);
-                    Toast.makeText(MeiziDetialActivity.this,"收藏已取消",Toast.LENGTH_SHORT).show();
+                    DataSupport.deleteAll(CollectionMeiziDb.class, "iamgeUrl = ?", imageUrl);
+                    Toast.makeText(MeiziDetialActivity.this, "收藏已取消", Toast.LENGTH_SHORT).show();
                 }
             }
         });

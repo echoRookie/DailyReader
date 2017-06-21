@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Created by rookie on 2017/6/2.
+ * 新闻模块轮播图的适配器
  */
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {

@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * Created by rookie on 2017/6/19.
+ * 收藏界面段子模块的适配器
  */
 
 public class CollectionDuanziAdapter extends RecyclerView.Adapter<CollectionDuanziAdapter.MyViewHolder> {
@@ -30,6 +31,7 @@ public class CollectionDuanziAdapter extends RecyclerView.Adapter<CollectionDuan
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        /*加载recyclerView的子布局*/
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.collection_duanzi_item,parent,false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
@@ -38,10 +40,15 @@ public class CollectionDuanziAdapter extends RecyclerView.Adapter<CollectionDuan
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final  CollectionDuanziDb db = myLists.get(position);
+        //段子内容
         holder.context.setText(db.getText());
+        //发表用户名
         holder.username.setText(db.getUsername());
+        //收藏时间
         holder.date.setText(DateUtil.getCollctionDate(db.getSaveDate()));
+        //用户头像
         Glide.with(myContext).load(db.getUsericon()).into(holder.icon);
+        //删除键的点击事件，并从数据库中删除对应的数据
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

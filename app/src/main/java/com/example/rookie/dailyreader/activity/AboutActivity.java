@@ -17,11 +17,12 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_about);
         toolbar = (Toolbar) findViewById(R.id.about_toolbar);
+       /* 设置toobar的标题*/
         toolbar.setTitle(R.string.about_title);
         setSupportActionBar(toolbar);
         /*显示toolbar自带返回键设置标题*/
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar!=null){
+        if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -30,7 +31,8 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+       /* 处理返回键的点击事件*/
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
