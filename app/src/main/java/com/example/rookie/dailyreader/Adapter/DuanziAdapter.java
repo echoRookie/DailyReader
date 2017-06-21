@@ -24,12 +24,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by rookie on 2017/5/23.
+ * 段子界面的适配器
  */
 
 public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.ViewHolder> {
     private ArrayList<DuanziData> mlist;
     private Context mcontext;
-
+    //段子是否被收藏的标记
     public Boolean[] getFlags() {
         return flags;
     }
@@ -43,6 +44,7 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.ViewHolder
     public DuanziAdapter(ArrayList<DuanziData> list, Context context) {
         mcontext = context;
         mlist = list;
+        //初始化默认为未收藏
         flags = new Boolean[list.size()];
         for (int i = 0; i < list.size(); i++) {
             flags[i] = false;
@@ -51,6 +53,7 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        /*加载recyclerView的子布局*/
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.duanzi_layout_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -60,18 +63,24 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final int clickPosition = position;
         final DuanziData duanziData = mlist.get(position);
+        //用户头像
         Glide.with(mcontext).load(duanziData.getUsericon()).into(holder.circleImageView);
+        //用户名字
         holder.textViewUserName.setText(duanziData.getUsername());
+        //详细内容
         holder.textViewContent.setText(duanziData.getDuanzitext());
+        //收藏按钮根据标记的值设置对应的状态
         if (flags[position] == false) {
             holder.collectionImage.setImageResource(R.drawable.news_collection);
         } else {
             holder.collectionImage.setImageResource(R.drawable.collection_selected);
         }
+        //收藏按钮的点击事件
         holder.collectionImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (flags[clickPosition] == false) {
+                    //收藏并将详细内容存到数据库
                     holder.collectionImage.setImageResource(R.drawable.collection_selected);
                     flags[clickPosition] = true;
                     CollectionDuanziDb db = new CollectionDuanziDb();
@@ -82,6 +91,7 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.ViewHolder
                     db.save();
                     Toast.makeText(mcontext, "已收藏", Toast.LENGTH_SHORT).show();
                 } else {
+                    //取消收藏并将对应的信息从数据库中删除
                     holder.collectionImage.setImageResource(R.drawable.news_collection);
                     flags[clickPosition] = false;
                     DataSupport.deleteAll(CollectionDuanziDb.class,"text = ? and username = ?",duanziData.getDuanzitext(),duanziData.getUsername());

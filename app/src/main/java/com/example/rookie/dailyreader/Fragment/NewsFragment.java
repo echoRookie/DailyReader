@@ -49,6 +49,7 @@ public class NewsFragment extends Fragment {
     private ArrayList<ViewPagerItem> recyclerList = new ArrayList<>();
     private RecyclerView newsRecyclerView;
     private NewsAdapter newsAdapter;
+    //请求第几天数据的标识符
     private Integer count = 0;
     private String beforeNews;
     private String beforeNewsOne;
@@ -59,6 +60,7 @@ public class NewsFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.news_layout, container, false);
         Bundle bundle = getArguments();
+        //获取并解析文章内容
         String newsData = bundle.getString("recyclerData");
         viewPagerImageUrl = bundle.getStringArrayList("imageUrl");
         viewPagerText = bundle.getStringArrayList("title");
@@ -91,9 +93,11 @@ public class NewsFragment extends Fragment {
                 }
             });
             --count;
+            //实现下拉加载更多
             newsRecyclerView.addOnScrollListener(new RecyclerViewScroll(manager) {
                 @Override
                 public void onLoadMore() {
+                    //请求前一天的数据
                     HttpUtil.sendOkHttpRequest(HttpUtil.getBeforeNews(count), new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
@@ -106,6 +110,7 @@ public class NewsFragment extends Fragment {
 
                         }
                     });
+                    //标识符减一
                     --count;
                     Log.d("gggggg", "onLoadMore: " + count);
 
@@ -113,6 +118,7 @@ public class NewsFragment extends Fragment {
                         beforeNews = beforeNewsOne;
                     }
                     Log.d("ggggggg", "onLoadMore: " + beforeNews);
+                    //recyclerView的通知adapter更新
                     newsRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
@@ -131,18 +137,27 @@ public class NewsFragment extends Fragment {
 
                 }
             });
+            //初始化轮播图的viewpager布局
             myviewPager = (ViewPager) view.findViewById(R.id.news_viewpager);
+            //初始化轮播图的指示器布局
             linearLayout = (LinearLayout) view.findViewById(R.id.news_linear);
+            //轮播图viewpager的fragment初始化
             myFragments = new ArrayList<>();
             for (int i = 0; i < viewPagerImageUrl.size(); i++) {
                 ViewPagerItemFragment viewPagerItemFragment = ViewPagerItemFragment.newInstance(viewPagerImageUrl.get(i), viewPagerText.get(i), viewPagerId.get(i));
                 myFragments.add(viewPagerItemFragment);
             }
+            //viewpager适配器初始化
             viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), myFragments);
+            //轮播图指示器的初始化
             for (int i = 0; i < myFragments.size(); i++) {
+                //初始化圆点图片
                 ImageView imageView = new ImageView(getContext());
+                //圆点背景色，图片为颜色选择器
                 imageView.setImageResource(R.drawable.shape_point_selector);
+                //圆点大小
                 int pointSize = getResources().getDimensionPixelSize(R.dimen.point_size);
+                //圆点属性设置
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pointSize, pointSize);
                 if (i > 0) {
                     params.leftMargin = pointSize;
@@ -151,9 +166,11 @@ public class NewsFragment extends Fragment {
                     imageView.setSelected(true);
                 }
                 imageView.setLayoutParams(params);
+                //动态添加指示器图标
                 linearLayout.addView(imageView);
             }
             myviewPager.setAdapter(viewPagerAdapter);
+            //viewpager滑动事件的监听
             myviewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -164,8 +181,11 @@ public class NewsFragment extends Fragment {
 
                 @Override
                 public void onPageSelected(int position) {
+                    //当前界面的位置
                     position = position % myFragments.size();
+                    //设置指示器颜色为选中
                     linearLayout.getChildAt(position).setSelected(true);
+                    //设置指示器前一页颜色为未选中
                     linearLayout.getChildAt(lastPosition).setSelected(false);
                     lastPosition = position;
                 }
@@ -176,13 +196,18 @@ public class NewsFragment extends Fragment {
                 }
             });
             handler = new Handler();
+            //实例化handler不断给自己发送消息最，时间间隔为2秒
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    //获得viewpager当前选中页
                     int currtposition = myviewPager.getCurrentItem();
+                    //最后一页则跳转到第一页
                     if (currtposition == myviewPager.getAdapter().getCount() - 1) {
                         myviewPager.setCurrentItem(0);
-                    } else {
+                    }
+                    //否则当前页加一
+                    else {
                         myviewPager.setCurrentItem(++currtposition);
                     }
                     handler.postDelayed(this, 6000);

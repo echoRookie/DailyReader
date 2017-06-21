@@ -83,15 +83,13 @@ public class NotificationService extends Service {
                 //通知优先级
                 builder.setPriority(NotificationCompat.PRIORITY_MAX);
                 //通知内容
-                builder.setStyle(new NotificationCompat.BigTextStyle(builder).bigText(title));
+                builder.setContentText(title);
                 //通知图标
                 builder.setSmallIcon(R.mipmap.ic_launcher);
                 //显示通知时间
                 builder.setShowWhen(true);
                 //设置通知时间为系统当前时间
                 builder.setWhen(System.currentTimeMillis());
-                //通知第三行内容不一定显示
-                builder.setSubText("time");
                 //可以点击通知栏的删除按钮删除
                 builder.setAutoCancel(true);
                 //系统默认通知样式铃声振动等
@@ -112,7 +110,6 @@ public class NotificationService extends Service {
        /* 开启intent唤醒服务*/
         Intent intentService = new Intent(this,NotificationService.class);
         PendingIntent piService = PendingIntent.getService(this,0,intentService,0);
-        alarmManager.cancel(piService);
        /* 开启定时任务*/
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,triggerHour,piService);
         return super.onStartCommand(intent, flags, startId);
