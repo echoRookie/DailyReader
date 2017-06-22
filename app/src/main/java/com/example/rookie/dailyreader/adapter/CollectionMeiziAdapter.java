@@ -52,8 +52,8 @@ public class CollectionMeiziAdapter extends RecyclerView.Adapter <CollectionMeiz
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myLists.remove(position);
                 DataSupport.deleteAll(CollectionMeiziDb.class,"iamgeUrl = ?",myLists.get(position).getIamgeUrl());
+                myLists.remove(position);
                 notifyItemRemoved(position);
             }
         });

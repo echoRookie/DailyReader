@@ -45,7 +45,7 @@ public class MeiziFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         HttpUtil.sendOkHttpRequest(HttpUtil.getUrl(), new Callback() {
+        HttpUtil.sendOkHttpRequest(HttpUtil.getUrl(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -53,33 +53,34 @@ public class MeiziFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                MeiziGson meiziGson =HttpUtil.handleMeiziResponse(response.body().string());
-                for (int i=0;i<meiziGson.MeiziList.size();i++){
+                MeiziGson meiziGson = HttpUtil.handleMeiziResponse(response.body().string());
+                for (int i = 0; i < meiziGson.MeiziList.size(); i++) {
                     imageUrl.add(meiziGson.MeiziList.get(i).url);
                 }
-                Log.d("hhhhh",meiziGson.MeiziList.get(0).url+"长度为"+imageUrl.size());
-                Log.d("hhhhhhhh","长度为"+imageUrl.size());
+                Log.d("hhhhh", meiziGson.MeiziList.get(0).url + "长度为" + imageUrl.size());
+                Log.d("hhhhhhhh", "长度为" + imageUrl.size());
             }
         });
-        View  view = inflater.inflate(R.layout.meizi_layout,container,false);
+        View view = inflater.inflate(R.layout.meizi_layout, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.MeiZiRecycer);
-        meiziAdapter =new MeiziAdapter(imageUrl,getContext());
-        GridLayoutManager manager = new GridLayoutManager(getContext(),2);
+        meiziAdapter = new MeiziAdapter(imageUrl, getContext());
+        GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(meiziAdapter);
+        //swipeRffresh的初始化及点击事件的监听
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.MeiziSwipeRefresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.primary_material_light_1);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshMeizi();
-               recyclerView.post(new Runnable() {
-                   @Override
-                   public void run() {
-                       swipeRefreshLayout.setRefreshing(false);
-                       meiziAdapter.notifyDataSetChanged();
-                   }
-               });
+                recyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                        meiziAdapter.notifyDataSetChanged();
+                    }
+                });
 
 
             }
@@ -92,33 +93,34 @@ public class MeiziFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
     }
+
     /*刷新事件*/
-    public void refreshMeizi(){
+    public void refreshMeizi() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
+                //重新请求网络数据并加载
                 HttpUtil.sendOkHttpRequest(HttpUtil.getUrl(), new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(getContext(),"刷新失败,请检查网络环境",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "刷新失败,请检查网络环境", Toast.LENGTH_SHORT).show();
                                 swipeRefreshLayout.setRefreshing(false);
                             }
                         });
 
                     }
-
+                //解析网络数据
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        MeiziGson meiziGson =HttpUtil.handleMeiziResponse(response.body().string());
-                       if(imageUrl!=null){
-                          imageUrl.clear();
-                       }
+                        MeiziGson meiziGson = HttpUtil.handleMeiziResponse(response.body().string());
+                        if (imageUrl != null) {
+                            imageUrl.clear();
+                        }
 
-                        for (int i=0;i<meiziGson.MeiziList.size();i++){
+                        for (int i = 0; i < meiziGson.MeiziList.size(); i++) {
                             imageUrl.add(meiziGson.MeiziList.get(i).url);
                         }
 

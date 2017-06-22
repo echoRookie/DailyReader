@@ -110,6 +110,7 @@ public class NotificationService extends Service {
        /* 开启intent唤醒服务*/
         Intent intentService = new Intent(this,NotificationService.class);
         PendingIntent piService = PendingIntent.getService(this,0,intentService,0);
+        alarmManager.cancel(piService);
        /* 开启定时任务*/
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,triggerHour,piService);
         return super.onStartCommand(intent, flags, startId);

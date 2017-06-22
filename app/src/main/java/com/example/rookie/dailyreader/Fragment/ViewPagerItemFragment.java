@@ -17,6 +17,7 @@ import com.example.rookie.dailyreader.activity.NewsDetialActivity;
 
 /**
  * Created by rookie on 2017/6/2.
+ * 静态工厂模式建立新闻模块轮播图fragment
  */
 
 public class ViewPagerItemFragment extends Fragment {
@@ -28,10 +29,14 @@ public class ViewPagerItemFragment extends Fragment {
     private String text;
     private String newsId;
     public static ViewPagerItemFragment newInstance(String imageUrl,String text,String id){
+        //存储文章信息并实例化fragment
         ViewPagerItemFragment viewPagerItemFragment = new ViewPagerItemFragment();
         Bundle bundle = new Bundle();
+        //文章图片
         bundle.putString(ARG1,imageUrl);
+        //文章标题
         bundle.putString(ARG2,text);
+        //文章id
         bundle.putString("newsId",id);
         viewPagerItemFragment.setArguments(bundle);
         return viewPagerItemFragment;
@@ -51,10 +56,13 @@ public class ViewPagerItemFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        /*加载布局文件*/
         View view = inflater.inflate(R.layout.news_viewpager_item,container,false);
         imageView = (ImageView) view.findViewById(R.id.viewpager_item_imageview);
         textView = (TextView) view.findViewById(R.id.viewpager_item_textview);
+        //加载文章图片
         Glide.with(getActivity()).load(imageUrl).into(imageView);
+        //图片点击事件，进入文章详情页
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +71,7 @@ public class ViewPagerItemFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
+        //文章标题
         textView.setText(text);
         return view;
     }
