@@ -43,7 +43,8 @@ public class CollectionMeiziAdapter extends RecyclerView.Adapter <CollectionMeiz
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MyViewHolder holder,  int position) {
+        final int positionOne =position;
         //收藏时间
         holder.date.setText(DateUtil.getCollctionDate(myLists.get(position).getSaveDate()));
         //具体图片内容
@@ -52,9 +53,10 @@ public class CollectionMeiziAdapter extends RecyclerView.Adapter <CollectionMeiz
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataSupport.deleteAll(CollectionMeiziDb.class,"iamgeUrl = ?",myLists.get(position).getIamgeUrl());
-                myLists.remove(position);
-                notifyItemRemoved(position);
+                DataSupport.deleteAll(CollectionMeiziDb.class,"iamgeUrl = ?",myLists.get(positionOne).getIamgeUrl());
+                myLists.remove(positionOne);
+                notifyItemRemoved(positionOne);
+                notifyDataSetChanged();
             }
         });
         //图片点击跳转到详情页
@@ -62,7 +64,7 @@ public class CollectionMeiziAdapter extends RecyclerView.Adapter <CollectionMeiz
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(myContext, MeiziDetialActivity.class);
-                intent.putExtra("imageUrl",myLists.get(position).getIamgeUrl());
+                intent.putExtra("imageUrl",myLists.get(positionOne).getIamgeUrl());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 myContext.startActivity(intent);
             }

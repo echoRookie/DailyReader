@@ -41,8 +41,9 @@ public class CollectionNewAdapter extends RecyclerView.Adapter<CollectionNewAdap
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
         final CollectionNewsDb collectionNewsDb = myLists.get(position);
+        final int positionOne = position;
         //收藏时间
         holder.date.setText(DateUtil.getCollctionDate(collectionNewsDb.getSaveDate()));
         //文章标题
@@ -51,9 +52,14 @@ public class CollectionNewAdapter extends RecyclerView.Adapter<CollectionNewAdap
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                 /* DataSupport.deleteAll(MeiziDb.class,"newsId = ?", newsId);
+                    List<NewsDb> newsDbList = DataSupport.where("newsId = ?",newsId).find(NewsDb.class);
+                    String contextId =String.valueOf(newsDbList.get(0).getId()) ;
+                    DataSupport.deleteAll(CollectionDb.class,"cateId = ? and contextId = ?","3",contextId);*/
                 DataSupport.deleteAll(CollectionNewsDb.class,"newsId = ?",collectionNewsDb.getNewsId());
-                myLists.remove(position);
-                notifyItemRemoved(position);
+                myLists.remove(positionOne);
+                notifyItemRemoved(positionOne);
+                notifyDataSetChanged();
             }
         });
         //标题点击跳转到详情页

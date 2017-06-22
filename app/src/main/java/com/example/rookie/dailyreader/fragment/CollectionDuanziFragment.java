@@ -33,6 +33,7 @@ public class CollectionDuanziFragment extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         myLists = DataSupport.findAll(CollectionDuanziDb.class);
+        /* List<DuanziDb> myLists = DataSupport.findAll(DuanziDb.class);*/
         myAdapter = new CollectionDuanziAdapter(myLists,getContext());
         recyclerView.setAdapter(myAdapter);
         return view;

@@ -32,6 +32,7 @@ public class CollectionMeiziFragment extends Fragment{
         GridLayoutManager manager = new GridLayoutManager(getContext(),2);
         recyclerView.setLayoutManager(manager);
         myLists = DataSupport.findAll(CollectionMeiziDb.class);
+        /* List<MeiziDb> myLists = DataSupport.findAll(MeiziDb.class);*/
         myAdapter = new CollectionMeiziAdapter(myLists,getContext());
         recyclerView.setAdapter(myAdapter);
         return view;

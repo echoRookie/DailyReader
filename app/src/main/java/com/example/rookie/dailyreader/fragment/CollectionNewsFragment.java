@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.adapter.CollectionNewAdapter;
 import com.example.rookie.dailyreader.db.CollectionNewsDb;
+import com.example.rookie.dailyreader.db.NewsDb;
 
 import org.litepal.crud.DataSupport;
 
@@ -32,6 +33,7 @@ public class CollectionNewsFragment extends Fragment{
         recyclerView = (RecyclerView) view.findViewById(R.id.collection_recycler);
 
         myLists = DataSupport.findAll(CollectionNewsDb.class);
+       /* List<NewsDb> myLists = DataSupport.findAll(NewsDb.class);*/
         Log.d("yyyyyyy", "onCreateView: "+myLists.size());
         for(int i=0;i<myLists.size();i++){
             Log.d("yyyyyyy", "onCreateView: "+myLists.get(i).getTitle());

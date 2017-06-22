@@ -38,8 +38,9 @@ public class CollectionDuanziAdapter extends RecyclerView.Adapter<CollectionDuan
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MyViewHolder holder,  int position) {
         final  CollectionDuanziDb db = myLists.get(position);
+        final  int positionOne = position;
         //段子内容
         holder.context.setText(db.getText());
         //发表用户名
@@ -52,9 +53,10 @@ public class CollectionDuanziAdapter extends RecyclerView.Adapter<CollectionDuan
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myLists.remove(position);
-                notifyItemRemoved(position);
+                myLists.remove(positionOne);
+                notifyItemRemoved(positionOne);
                 DataSupport.deleteAll(CollectionDuanziDb.class,"text = ? and username = ?",db.getText(),db.getUsername());
+                notifyDataSetChanged();
             }
         });
 

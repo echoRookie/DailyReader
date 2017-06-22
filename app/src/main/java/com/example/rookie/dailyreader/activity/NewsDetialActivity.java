@@ -20,8 +20,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.rookie.dailyreader.R;
+import com.example.rookie.dailyreader.db.CollectionDb;
 import com.example.rookie.dailyreader.db.CollectionMeiziDb;
 import com.example.rookie.dailyreader.db.CollectionNewsDb;
+import com.example.rookie.dailyreader.db.MeiziDb;
+import com.example.rookie.dailyreader.db.NewsDb;
 import com.example.rookie.dailyreader.gson.NewsInfoGson;
 import com.example.rookie.dailyreader.util.DateUtil;
 import com.example.rookie.dailyreader.util.HttpUtil;
@@ -61,6 +64,7 @@ public class NewsDetialActivity extends AppCompatActivity {
         final String newsId = getIntent().getStringExtra("newsId");
         List<CollectionNewsDb> myLists = DataSupport.where("newsId = ?", newsId).find(CollectionNewsDb.class);
         Log.d("ppp", "onCreate: " + newsId);
+       /* List<NewsDb> myLists = DataSupport.where("newsId = ?", newsId).find(NewsDb.class);*/
         /*floatingActionButton初始化及默认状态的设置*/
         floatingActionButton = (FloatingActionButton) findViewById(R.id.news_detail_floatbutton);
         if (myLists.size() > 0) {
@@ -202,6 +206,17 @@ public class NewsDetialActivity extends AppCompatActivity {
                     db.setTitle(title);
                     db.setImageUrl(imageUrl);
                     db.save();
+                   /* NewsDb newsDb = new NewsDb();
+                    newsDb.setNewsId(newsId);
+                    newsDb.setTitle(title);
+                    newsDb.setImageUrl(imageUrl);
+                    newsDb.save();
+                    CollectionDb collectionDb = new CollectionDb();
+                    collectionDb.setSaveDate(new Date());
+                    collectionDb.setCateId(3);
+                    List<NewsDb> newsDbList = DataSupport.where("newsId = ?",newsId).find(NewsDb.class);
+                    collectionDb.setContextId(newsDbList.get(0).getId());
+                    collectionDb.save();*/
                     flag = true;
                     Toast.makeText(NewsDetialActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
                 } else {
@@ -209,6 +224,10 @@ public class NewsDetialActivity extends AppCompatActivity {
                     floatingActionButton.setImageResource(R.drawable.news_collection);
                     flag = false;
                     DataSupport.deleteAll(CollectionNewsDb.class, "newsId = ?", newsId);
+                   /* DataSupport.deleteAll(MeiziDb.class,"newsId = ?", newsId);
+                    List<NewsDb> newsDbList = DataSupport.where("newsId = ?",newsId).find(NewsDb.class);
+                    String contextId =String.valueOf(newsDbList.get(0).getId()) ;
+                    DataSupport.deleteAll(CollectionDb.class,"cateId = ? and contextId = ?","3",contextId);*/
                     Toast.makeText(NewsDetialActivity.this, "收藏已取消", Toast.LENGTH_SHORT).show();
                 }
 

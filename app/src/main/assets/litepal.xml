@@ -9,5 +9,7 @@
         <mapping class="com.example.rookie.dailyreader.db.MeiziDb"/>
         <mapping class="com.example.rookie.dailyreader.db.DuanziDb"/>
         <mapping class="com.example.rookie.dailyreader.db.NewsDb"/>
+        <mapping class="com.example.rookie.dailyreader.db.CategoryDb"/>
+        <mapping class="com.example.rookie.dailyreader.db.CollectionDb"/>
     </list>
 </litepal>
