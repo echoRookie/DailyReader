@@ -19,6 +19,7 @@
             android:layout_gravity="center_vertical"
             />
         <TextView
+            android:textColor="@color/colorFont"
             android:layout_weight="1"
             android:id="@+id/collection_news_date"
             android:paddingLeft="8dp"
@@ -42,6 +43,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <TextView
+            android:textColor="@color/colorFont"
             android:layout_gravity="center"
             android:id="@+id/collection_news_title"
             android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -66,7 +68,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:background="@color/cardview_light_background"
+        android:background="@color/duanzi_line"
         />
 </LinearLayout>
 

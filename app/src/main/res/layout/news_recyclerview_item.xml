@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <TextView
+            android:textColor="@color/colorFont"
             android:layout_gravity="center"
             android:id="@+id/news_recycler_title"
             android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"

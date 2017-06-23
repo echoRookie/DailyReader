@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -14,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="240dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:contentScrim="@color/primary_material_light_1"
+            app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways">
 
             <ImageView
@@ -29,55 +30,61 @@
                 android:id="@+id/news_detail_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:titleTextColor="@color/toolbar_color"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:titleTextColor="@color/toolbar_color" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <WebView
-            android:id="@+id/news_detail_webview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-            <LinearLayout
-                android:layout_marginBottom="16dp"
-                android:id="@+id/news_detail_section"
-                android:visibility="gone"
-                android:layout_marginTop="8dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <WebView
+                android:id="@+id/news_detail_webview"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/news_detail_section"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone">
+
                 <ImageView
-                    android:layout_gravity="center_vertical"
                     android:id="@+id/news_detail_smallImage"
-                    android:layout_marginLeft="20dp"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/nav_header_icon"/>
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/nav_header_icon" />
+
                 <TextView
                     android:id="@+id/news_detail_newsFrom"
-                    android:layout_marginLeft="8dp"
-                    android:text="本文来自:大悟 ——合集"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical"
+                    android:text="本文来自:大悟 ——合集"
+                    android:textColor="@color/colorFont" />
+
                 <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:scaleType="centerCrop"
                     android:id="@+id/news_detail_goSection"
-                    android:layout_marginRight="20dp"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/news_detail_go"/>
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/news_detail_go" />
             </LinearLayout>
 
         </LinearLayout>
@@ -88,9 +95,9 @@
         android:id="@+id/news_detail_floatbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/news_collection"
         android:layout_gravity="end|bottom"
+        android:layout_marginBottom="132dp"
         android:layout_marginRight="24dp"
-        android:layout_marginBottom="132dp"/>
+        android:src="@drawable/news_collection" />
 
 </android.support.design.widget.CoordinatorLayout>

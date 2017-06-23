@@ -14,6 +14,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
         <TextView
+            android:textColor="@color/colorFont"
             android:layout_gravity="center"
             android:id="@+id/news_section_title"
             android:text="aaaaaaaaaaaaaaaaaaa"
@@ -26,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp" />
             <TextView
+                android:textColor="@color/colorFont"
                 android:text="6月1日"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"

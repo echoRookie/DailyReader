@@ -21,6 +21,7 @@
     <string name="setting_cate_two">关于</string>
     <string name="setting_cate_three">作者</string>
     <string name="setting_notification">开启消息通知</string>
+    <string name="setting_theme">夜间模式</string>
     <string name="title_one">当前版本号</string>
     <string name="summary_one">V1.0.0</string>
     <string name="title_two">项目地址</string>

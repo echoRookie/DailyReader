@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#607D8B</color>
+    <color name="colorPrimaryDark">#484e51</color>
+    <color name="colorAccent">#1296db</color>
+    <color name="primary_material_light_1">#4caf50</color>
+    <color name="tab_text_select">#1296db</color>
+    <color name="colorFont">#e8e6e6</color>
+    <color name="text_color">#FFFFFF</color>
+    <color name="toolbar_color">#FFFFFF</color>
+    <color name="about_view">#EDEDED</color>
+    <color name="duanzi_line">#484e51</color>
+    <color name="background">#484e51</color>
+</resources>

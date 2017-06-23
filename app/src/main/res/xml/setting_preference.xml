@@ -6,6 +6,10 @@
             android:defaultValue="false"
             android:title="@string/setting_notification"
             android:key="switch_notification" />
+        <SwitchPreference
+        android:defaultValue="false"
+        android:title="@string/setting_theme"
+        android:key="isNight" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/setting_cate_two">

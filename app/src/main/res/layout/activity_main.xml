@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout
+    android:background="@color/background"
     android:id="@+id/MyDrawerLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/MyToolbar"
-            android:background="@color/primary_material_light_1"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
         </android.support.design.widget.AppBarLayout>
         <LinearLayout
@@ -50,6 +50,8 @@
         android:layout_gravity="start"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
+        app:itemTextColor="@color/colorFont"
         app:menu="@menu/nav_menu"
         app:headerLayout="@layout/nav_header">
     </android.support.design.widget.NavigationView>

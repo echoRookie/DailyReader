@@ -5,12 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.fragment.MyPreferenceFragment;
 
 public class MyPreferenceActivity extends AppCompatActivity {
     private Toolbar toolbar;
+    private LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -25,6 +29,7 @@ public class MyPreferenceActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        linearLayout = (LinearLayout)  findViewById(R.id.activity_preference);
         /*Fragment替换当前布局*/
         getFragmentManager().beginTransaction().replace(R.id.preference_main,new MyPreferenceFragment()).commit();
     }
@@ -37,5 +42,10 @@ public class MyPreferenceActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

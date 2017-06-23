@@ -1,6 +1,8 @@
 package com.example.rookie.dailyreader.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -161,6 +163,13 @@ public class NewsDetialActivity extends AppCompatActivity {
 
                 String css = "<link rel=\"stylesheet\" href=\"file:///android_asset/zhihu_daily.css\" type=\"text/css\">";
                 String theme = "<body className=\"\" onload=\"onLoaded()\">";
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                Boolean isNight = preferences.getBoolean("isNight",false);
+                if (isNight) {
+
+                    theme = "<body className=\"\" onload=\"onLoaded()\" class=\"night\">";
+
+                }
                 result = "<!DOCTYPE html>\n"
 
                         + "<html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\">\n"

@@ -25,10 +25,12 @@
         android:layout_width="wrap_content"
         android:layout_height="16dp"
         android:text="杨军"
+        android:textColor="@color/colorFont"
         android:layout_gravity="center_vertical"
         android:layout_toRightOf="@id/collection_duanzi_icon"
         />
         <TextView
+            android:textColor="@color/colorFont"
             android:layout_weight="1"
             android:id="@+id/collection_duanzi_date"
             android:paddingLeft="8dp"
@@ -57,13 +59,13 @@
         android:paddingLeft="40dp"
         android:paddingRight="10dp"
         android:textSize="16dp"
-        android:textColor="@android:color/background_dark"
+        android:textColor="@color/colorFont"
         android:text="老公姓李，老婆姓周。老婆生了个双胞胎，老丈人向女婿提要求了：1，给孩子取名字一个姓周，一个姓李[害羞][害羞]；2，取名字要有纪念意义；3，两个名字要同一个意思[冷汗][冷汗]！今天女婿告诉老丈人，名字取好了……一个叫周末；一个叫李拜天。老丈人无话可说，开了瓶茅台酒………语重心长的说：祝周末李拜天愉快！[偷笑]哈哈，祝周末愉快[呲牙]"
         />
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:background="@color/cardview_light_background"
+        android:background="@color/duanzi_line"
         />
 </LinearLayout>
 
