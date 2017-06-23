@@ -15,5 +15,9 @@
             android:icon="@drawable/nav_menu_about"
             android:id="@+id/nav_about"
             android:title="@string/nav_about"/>
+        <item
+            android:icon="@drawable/nav_menu_newspaper"
+            android:id="@+id/nav_newspa"
+            android:title="@string/nav_newspaper"/>
     </group>
 </menu>

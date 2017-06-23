@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.rookie.dailyreader.R;
+import com.example.rookie.dailyreader.activity.MeiziDetailSubActivity;
 import com.example.rookie.dailyreader.activity.MeiziDetialActivity;
 
 import java.util.ArrayList;
@@ -55,8 +56,13 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.ViewHolder> 
         holder.MeiziImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mcontext, MeiziDetialActivity.class);
+               /* Intent intent = new Intent(mcontext, MeiziDetialActivity.class);
                 intent.putExtra("imageUrl", mlist.get(position));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mcontext.startActivity(intent);*/
+                Intent intent = new Intent(mcontext, MeiziDetailSubActivity.class);
+                intent.putExtra("position",position);
+                intent.putStringArrayListExtra("list",mlist);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mcontext.startActivity(intent);
             }

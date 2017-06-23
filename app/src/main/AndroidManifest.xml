@@ -29,7 +29,8 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activity.NewsSectionActivity"></activity>
+        <activity android:name=".activity.NewsSectionActivity" />
+        <activity android:name=".activity.MeiziDetailSubActivity"></activity>
     </application>
 
 </manifest>

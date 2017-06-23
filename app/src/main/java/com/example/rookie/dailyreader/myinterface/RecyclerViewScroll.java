@@ -27,7 +27,7 @@ public abstract class RecyclerViewScroll extends RecyclerView.OnScrollListener {
         totalItem = myManager.getItemCount();
         visibleItem = myManager.getChildCount();
         lastItem = myManager.findLastCompletelyVisibleItemPosition();
-        //满足条件调用onLoadMore方法加载
+        //满足条件调用onLoadMore   法加载
         //当前可见子布局数大于零
         //向下滑动
         //当前可见子布局为适配器中最后一项
