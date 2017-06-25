@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="45dp"
+    android:background="@color/background"
+
+    android:clipChildren="false">
+    <TextView
+        android:layout_gravity="center"
+        android:background="@color/duanzi_line"
+        android:gravity="center"
+        android:textSize="12dp"
+       android:layout_centerInParent="true"
+        android:id="@+id/paper_item_text"
+        android:text="好奇心日报"
+        android:textColor="@color/colorFont"
+        android:layout_width="85dp"
+        android:layout_height="30dp" />
+    <ImageView
+        android:visibility="gone"
+        android:background="@color/duanzi_line"
+        android:id="@+id/paper_item_delete"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/collection_delete"
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
+
+</RelativeLayout>

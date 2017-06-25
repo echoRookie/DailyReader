@@ -12,7 +12,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:title="@string/about_title"/>
+            android:title="@string/about_title"
+            >
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/newspaper_add"
+                android:layout_gravity="right|center_vertical"
+                android:background="@drawable/paper_add"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="16dp"/>
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/news_section_recycler"

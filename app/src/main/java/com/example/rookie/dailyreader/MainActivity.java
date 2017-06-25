@@ -28,7 +28,9 @@ import android.widget.Toast;
 import com.example.rookie.dailyreader.activity.AboutActivity;
 import com.example.rookie.dailyreader.activity.MyCollectionActivity;
 import com.example.rookie.dailyreader.activity.MyPreferenceActivity;
+import com.example.rookie.dailyreader.activity.NewspaperActivity;
 import com.example.rookie.dailyreader.db.CollectionMeiziDb;
+import com.example.rookie.dailyreader.db.MypaperDb;
 import com.example.rookie.dailyreader.fragment.DuanziFragment;
 import com.example.rookie.dailyreader.fragment.MeiziFragment;
 import com.example.rookie.dailyreader.fragment.NewsFragment;
@@ -80,11 +82,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*存储默认订阅日报*/
+        List<MypaperDb> mypaperDbs = DataSupport.where("paperId = ?","12").find(MypaperDb.class);
+        if(mypaperDbs.size()<1){
+            MypaperDb mypaperDb = new MypaperDb();
+            mypaperDb.setPaperName("用户推荐日报");
+            mypaperDb.setTitle("内容由知乎用户推荐，海纳主题百万，趣味上天入地");
+            mypaperDb.setImageUrl("http://pic4.zhimg.com/2c38a96e84b5cc8331a901920a87ea71.jpg");
+            mypaperDb.setPaperId("12");
+            mypaperDb.save();
+        }
+
         /*检查默认值确定是否开启通知*/
         SharedPreferences preferences = android.preference.PreferenceManager.getDefaultSharedPreferences(this);
         Boolean notification = preferences.getBoolean("switch_notification",false);
         Log.d("yyyyyyyyyy", "onCreate: "+notification);
-        if (notification == true){
+        if (notification){
             Intent intent = new Intent(this, NotificationService.class);
             startService(intent);
         }
@@ -115,6 +128,12 @@ public class MainActivity extends AppCompatActivity {
                    startActivity(intent);
 
                }
+                if(item.getItemId()==R.id.nav_newspaper) {
+                    drawerLayout.closeDrawers();
+                    Intent intent = new Intent(MainActivity.this,NewspaperActivity.class);
+                    startActivity(intent);
+
+                }
                 return true;
             }
         });

@@ -11,5 +11,6 @@
         <mapping class="com.example.rookie.dailyreader.db.NewsDb"/>
         <mapping class="com.example.rookie.dailyreader.db.CategoryDb"/>
         <mapping class="com.example.rookie.dailyreader.db.CollectionDb"/>
+        <mapping class="com.example.rookie.dailyreader.db.MypaperDb"/>
     </list>
 </litepal>

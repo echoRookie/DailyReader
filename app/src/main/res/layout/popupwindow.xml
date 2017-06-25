@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="560dp"
+    android:background="@color/background"
+    android:layout_marginTop="8dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+      >
+        <ImageView
+            android:id="@+id/window_back"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/collection_delete"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        >
+        <TextView
+            android:textSize="16dp"
+            android:textColor="@color/colorFont"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:text="@string/popupwindow_mypaper"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/duanzi_line"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:text="@string/mypaper_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/window_edit"
+            android:textColor="@color/colorFont"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="@string/popupwindow_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"/>
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:layout_marginTop="8dp"
+        android:id="@+id/mypaper_recycler"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"></android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        >
+        <TextView
+            android:textSize="16dp"
+            android:textColor="@color/colorFont"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:text="@string/popupwindow_paper"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/duanzi_line"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:text="@string/popupwindow_note"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:layout_marginTop="8dp"
+        android:id="@+id/paper_recycler"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="24dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
