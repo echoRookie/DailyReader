@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.bean.NewspaperInfo;
+import com.example.rookie.dailyreader.db.MypaperDb;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 
@@ -20,15 +23,32 @@ import java.util.ArrayList;
 
 public class PopupWindowAdapter  extends RecyclerView.Adapter <PopupWindowAdapter.MyViewHolder>{
     private ArrayList<NewspaperInfo> myLists;
+
+
+
     private PopupWindowAdapterOne popupWindowAdapter;
     private Context myContext;
     private NewspaperApater myNewspaperApater;
-    public  PopupWindowAdapter(ArrayList<NewspaperInfo> lists,Context context,PopupWindowAdapterOne Adapter,NewspaperApater newspaperApater){
+    public  PopupWindowAdapter(ArrayList<NewspaperInfo> lists,Context context){
         myLists = lists;
         myContext = context;
-        popupWindowAdapter = Adapter;
-        myNewspaperApater = newspaperApater;
 
+    }
+
+    public NewspaperApater getMyNewspaperApater() {
+        return myNewspaperApater;
+    }
+
+    public void setMyNewspaperApater(NewspaperApater myNewspaperApater) {
+        this.myNewspaperApater = myNewspaperApater;
+    }
+
+    public PopupWindowAdapterOne getPopupWindowAdapter() {
+        return popupWindowAdapter;
+    }
+
+    public void setPopupWindowAdapter(PopupWindowAdapterOne popupWindowAdapter) {
+        this.popupWindowAdapter = popupWindowAdapter;
     }
     public ArrayList<NewspaperInfo> getMyLists() {
         return myLists;
@@ -53,12 +73,15 @@ public class PopupWindowAdapter  extends RecyclerView.Adapter <PopupWindowAdapte
             @Override
             public void onClick(View v) {
                 Log.d("kkkk", "onClick: "+popupWindowAdapter.getMyLists().size());
+                popupWindowAdapter.getMyLists().add(info);
                 popupWindowAdapter.notifyDataSetChanged();
                 myLists.remove(positionOne);
                 notifyItemRemoved(positionOne);
                 notifyDataSetChanged();
                 myNewspaperApater.getMyLists().remove(positionOne);
                 myNewspaperApater.notifyDataSetChanged();
+                //数据库中删除
+                DataSupport.deleteAll(MypaperDb.class," paperId = ?",info.getPaperId());
             }
         });
     }

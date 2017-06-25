@@ -22,11 +22,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.rookie.dailyreader.R;
-import com.example.rookie.dailyreader.db.CollectionDb;
 import com.example.rookie.dailyreader.db.CollectionMeiziDb;
 import com.example.rookie.dailyreader.db.CollectionNewsDb;
-import com.example.rookie.dailyreader.db.MeiziDb;
-import com.example.rookie.dailyreader.db.NewsDb;
 import com.example.rookie.dailyreader.gson.NewsInfoGson;
 import com.example.rookie.dailyreader.util.DateUtil;
 import com.example.rookie.dailyreader.util.HttpUtil;

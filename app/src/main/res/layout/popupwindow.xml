@@ -28,13 +28,16 @@
             android:text="@string/popupwindow_mypaper"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
+
         <TextView
-            android:textColor="@color/duanzi_line"
+            android:textColor="@color/popunwindow_note"
             android:gravity="center_vertical"
             android:layout_marginLeft="16dp"
             android:text="@string/mypaper_notification"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:id="@+id/textView" />
+
         <TextView
             android:id="@+id/window_edit"
             android:textColor="@color/colorFont"
@@ -67,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <TextView
-            android:textColor="@color/duanzi_line"
+            android:textColor="@color/popunwindow_note"
             android:gravity="center_vertical"
             android:layout_marginLeft="16dp"
             android:text="@string/popupwindow_note"

@@ -32,7 +32,7 @@
     <string name="summary_four">https://github.com/echoRookie</string>
     <string name="nav_newspaper">日报订阅</string>
     <string name="popupwindow_mypaper">我的日报</string>
-    <string name="mypaper_notification">拖拽可以排序</string>
+    <string name="mypaper_notification">点击删除日报</string>
     <string name="popupwindow_edit">编辑</string>
     <string name="popupwindow_paper">日报推荐</string>
     <string name="popupwindow_note">点击添加日报</string>

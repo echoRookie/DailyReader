@@ -19,8 +19,8 @@
                 android:id="@+id/newspaper_add"
                 android:layout_gravity="right|center_vertical"
                 android:background="@drawable/paper_add"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginRight="16dp"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

@@ -83,7 +83,15 @@ public class HttpUtil {
 
         return String.valueOf(sectionBeforeApi);
     }
+   /* 获取知乎主题日报内容*/
+    public static  String getThemeApi(String paparId){
+        StringBuilder themeApi = new StringBuilder();
 
+       themeApi.append("http://news-at.zhihu.com/api/4/theme/").append(paparId);
+
+        return String.valueOf(themeApi);
+
+    }
    /*解析主题日报返回链表*/
     public static ArrayList<NewspaperInfo> getNewspaper(){
         ArrayList<NewspaperInfo> myList = new ArrayList<>();

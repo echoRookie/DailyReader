@@ -17,7 +17,7 @@
             android:textColor="@color/colorFont"
             android:layout_gravity="center"
             android:id="@+id/news_section_title"
-            android:text="aaaaaaaaaaaaaaaaaaa"
+            android:text="aaaa"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center_vertical"
@@ -48,7 +48,7 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="@color/cardview_dark_background"/>
+        android:layout_height="2dp"
+        android:background="@color/duanzi_line"/>
 
 </LinearLayout>

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.adapter.CollectionNewAdapter;
 import com.example.rookie.dailyreader.db.CollectionNewsDb;
-import com.example.rookie.dailyreader.db.NewsDb;
 
 import org.litepal.crud.DataSupport;
 

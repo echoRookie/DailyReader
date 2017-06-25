@@ -31,7 +31,8 @@
 
         <activity android:name=".activity.NewsSectionActivity" />
         <activity android:name=".activity.MeiziDetailSubActivity" />
-        <activity android:name=".activity.NewspaperActivity"></activity>
+        <activity android:name=".activity.NewspaperActivity" />
+        <activity android:name=".activity.NewspaperItemActivity"></activity>
     </application>
 
 </manifest>

@@ -58,7 +58,7 @@ public class NewspaperActivity extends AppCompatActivity {
     private View view;
     private PopupWindowAdapter popupWindowAdapter;
     private PopupWindowAdapterOne popupWindowAdapterOne;
-    private NewsPagerGson newsPagerGson;
+    private ImageView popupWindowBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class NewspaperActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"diandin",Toast.LENGTH_SHORT).show();
+               /* Toast.makeText(getApplicationContext(),"diandin",Toast.LENGTH_SHORT).show();*/
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.popupwindow, null);
 
@@ -129,10 +129,22 @@ public class NewspaperActivity extends AppCompatActivity {
                 GridLayoutManager gridLayoutManagerOne = new GridLayoutManager(getApplicationContext(),3);
                 recycler.setLayoutManager(gridLayoutManager);
                 recyclerselect.setLayoutManager(gridLayoutManagerOne);
-                popupWindowAdapter = new PopupWindowAdapter(mylists,getApplicationContext(),popupWindowAdapterOne,myAdapter);
-                popupWindowAdapterOne = new PopupWindowAdapterOne(mySelectlists,getApplicationContext(),popupWindowAdapter,myAdapter);
+                popupWindowAdapter = new PopupWindowAdapter(mylists,getApplicationContext());
+                popupWindowAdapterOne = new PopupWindowAdapterOne(mySelectlists,getApplicationContext());
+                popupWindowAdapter.setPopupWindowAdapter(popupWindowAdapterOne);
+                popupWindowAdapterOne.setPopupWindowAdapter(popupWindowAdapter);
+                popupWindowAdapter.setMyNewspaperApater(myAdapter);
+                popupWindowAdapterOne.setMyNewspaperApater(myAdapter);
                 recycler.setAdapter(popupWindowAdapter);
                 recyclerselect.setAdapter(popupWindowAdapterOne);
+                //点击返回退出popupwindow
+                popupWindowBack = (ImageView) window.getContentView().findViewById(R.id.window_back);
+                popupWindowBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        window.dismiss();
+                    }
+                });
                 // 设置popWindow的点击背景变暗和消失时的监听事件
                 window.showAtLocation(add,Gravity.BOTTOM,0,0);
                 WindowManager.LayoutParams params = myWindow.getAttributes();
@@ -157,6 +169,7 @@ public class NewspaperActivity extends AppCompatActivity {
 
         myAdapter = new NewspaperApater(mylistsOne,getApplicationContext());
         recyclerView.setAdapter(myAdapter);
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

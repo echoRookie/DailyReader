@@ -6,11 +6,6 @@
        <mapping class="com.example.rookie.dailyreader.db.CollectionDuanziDb"/>
         <mapping class="com.example.rookie.dailyreader.db.CollectionMeiziDb"/>
         <mapping class="com.example.rookie.dailyreader.db.CollectionNewsDb"/>
-        <mapping class="com.example.rookie.dailyreader.db.MeiziDb"/>
-        <mapping class="com.example.rookie.dailyreader.db.DuanziDb"/>
-        <mapping class="com.example.rookie.dailyreader.db.NewsDb"/>
-        <mapping class="com.example.rookie.dailyreader.db.CategoryDb"/>
-        <mapping class="com.example.rookie.dailyreader.db.CollectionDb"/>
         <mapping class="com.example.rookie.dailyreader.db.MypaperDb"/>
     </list>
 </litepal>

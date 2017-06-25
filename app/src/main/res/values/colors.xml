@@ -11,4 +11,5 @@
     <color name="about_view">#EDEDED</color>
     <color name="duanzi_line">#e3e2e2</color>
     <color name="background">#ffffff</color>
+    <color name="popunwindow_note">#808080</color>
 </resources>

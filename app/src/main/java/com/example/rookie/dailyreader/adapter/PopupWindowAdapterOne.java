@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.rookie.dailyreader.R;
 import com.example.rookie.dailyreader.bean.NewspaperInfo;
+import com.example.rookie.dailyreader.db.MypaperDb;
 
 import java.util.ArrayList;
 
@@ -21,11 +22,9 @@ public class PopupWindowAdapterOne extends RecyclerView.Adapter <PopupWindowAdap
     private Context myContext;
     private PopupWindowAdapter popupWindowAdapter;
     private NewspaperApater myNewspaperApater;
-    public PopupWindowAdapterOne(ArrayList<NewspaperInfo> lists, Context context,PopupWindowAdapter adapter,NewspaperApater newspaperApater){
+    public PopupWindowAdapterOne(ArrayList<NewspaperInfo> lists, Context context){
         myLists = lists;
         myContext = context;
-        popupWindowAdapter = adapter;
-        myNewspaperApater = newspaperApater;
 
     }
     @Override
@@ -33,6 +32,22 @@ public class PopupWindowAdapterOne extends RecyclerView.Adapter <PopupWindowAdap
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.paper_item,parent,false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
+    }
+
+    public PopupWindowAdapter getPopupWindowAdapter() {
+        return popupWindowAdapter;
+    }
+
+    public void setPopupWindowAdapter(PopupWindowAdapter popupWindowAdapter) {
+        this.popupWindowAdapter = popupWindowAdapter;
+    }
+
+    public NewspaperApater getMyNewspaperApater() {
+        return myNewspaperApater;
+    }
+
+    public void setMyNewspaperApater(NewspaperApater myNewspaperApater) {
+        this.myNewspaperApater = myNewspaperApater;
     }
 
     public ArrayList<NewspaperInfo> getMyLists() {
@@ -55,6 +70,13 @@ public class PopupWindowAdapterOne extends RecyclerView.Adapter <PopupWindowAdap
                 myNewspaperApater.notifyDataSetChanged();
                 popupWindowAdapter.getMyLists().add(info);
                 popupWindowAdapter.notifyDataSetChanged();
+                //添加到数据库
+                MypaperDb db = new MypaperDb();
+                db.setPaperId(info.getPaperId());
+                db.setPaperName(info.getPaperName());
+                db.setTitle(info.getTitle());
+                db.setImageUrl(info.getImageUrl());
+                db.save();
                 myLists.remove(positionOne);
                 notifyItemRemoved(positionOne);
                 notifyDataSetChanged();
