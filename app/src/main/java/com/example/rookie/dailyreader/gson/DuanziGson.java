@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Created by rookie on 2017/5/19.
+ * 段子数据解析
  */
 
 public class DuanziGson {

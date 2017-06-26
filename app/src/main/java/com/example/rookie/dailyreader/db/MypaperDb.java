@@ -4,13 +4,19 @@ import org.litepal.crud.DataSupport;
 
 /**
  * Created by rookie on 2017/6/24.
+ * 用户已订阅日报表
  */
 
 public class MypaperDb extends DataSupport {
+    //id 主键
     private int id;
+    //日报id
     private String paperId;
+    //名称
     private String paperName;
+    //对应图片
     private String imageUrl;
+    //日报描述
     private String title;
 
     public int getId() {

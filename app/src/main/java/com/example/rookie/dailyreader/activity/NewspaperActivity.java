@@ -64,7 +64,7 @@ public class NewspaperActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_section_main);
-        //查找数据中存储的订阅的日报,初始化recyclerview
+        //查找数据中存储的订阅的日报，已订阅日报数据的初始化
         List<MypaperDb> mypaperDbs = DataSupport.findAll(MypaperDb.class);
         for(int i= 0;i<mypaperDbs.size();i++){
             NewspaperInfo info = new NewspaperInfo();
@@ -95,8 +95,9 @@ public class NewspaperActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         myWindow = getWindow();
-        //初始化添加按钮及点击事件
+        //初始化添加按钮及点击事件，弹出popupwindow窗口
         add = (ImageView) findViewById(R.id.newspaper_add);
+        //设置按钮可见
         add.setVisibility(View.VISIBLE);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +107,7 @@ public class NewspaperActivity extends AppCompatActivity {
                 view = inflater.inflate(R.layout.popupwindow, null);
 
 
-                // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
+                // 下面是两种方法得到宽度和高度
 
                         window = new PopupWindow(view,
                         WindowManager.LayoutParams.MATCH_PARENT,
@@ -118,11 +119,11 @@ public class NewspaperActivity extends AppCompatActivity {
                 window.setOutsideTouchable(true);
 
 
-                // 实例化一个ColorDrawable颜色
+                // 实例化一个ColorDrawable颜色，16进制，前两位表示透明度
                 ColorDrawable dw = new ColorDrawable(0xffffffff);
                 window.setBackgroundDrawable(dw);
 
-                //popupWindow 控件的初始化
+                //popupWindow 内部控件的初始化
                 recycler = (RecyclerView) window.getContentView().findViewById(R.id.mypaper_recycler);
                 recyclerselect = (RecyclerView) window.getContentView().findViewById(R.id.paper_recycler);
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),3);
@@ -131,6 +132,7 @@ public class NewspaperActivity extends AppCompatActivity {
                 recyclerselect.setLayoutManager(gridLayoutManagerOne);
                 popupWindowAdapter = new PopupWindowAdapter(mylists,getApplicationContext());
                 popupWindowAdapterOne = new PopupWindowAdapterOne(mySelectlists,getApplicationContext());
+                //适配器相关联
                 popupWindowAdapter.setPopupWindowAdapter(popupWindowAdapterOne);
                 popupWindowAdapterOne.setPopupWindowAdapter(popupWindowAdapter);
                 popupWindowAdapter.setMyNewspaperApater(myAdapter);
@@ -162,7 +164,7 @@ public class NewspaperActivity extends AppCompatActivity {
 
             }
         });
-
+        //主布局控件的初始化
         recyclerView = (RecyclerView) findViewById(R.id.news_section_recycler);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);

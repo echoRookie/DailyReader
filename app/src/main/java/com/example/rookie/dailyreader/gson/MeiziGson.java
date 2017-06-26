@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Created by rookie on 2017/5/16.
+ * 图片数据解析
  */
 
 public class MeiziGson {

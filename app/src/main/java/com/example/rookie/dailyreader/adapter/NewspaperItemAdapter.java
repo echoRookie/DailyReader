@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 /**
  * Created by rookie on 2017/6/25.
+ * 某个主题日报下文章数据的适配器
  */
 
 public class NewspaperItemAdapter extends RecyclerView.Adapter<NewspaperItemAdapter.MyViewHolder> {
@@ -39,12 +40,14 @@ public class NewspaperItemAdapter extends RecyclerView.Adapter<NewspaperItemAdap
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final ViewPagerItem viewPagerItem = myLists.get(position);
         holder.textView.setText(viewPagerItem.getTitle());
+        //判断返回数据是否有图片，没有则不显示
         if(myLists.get(position).getImageUrl() == null){
             holder.imageView.setVisibility(View.GONE);
         }
         else {
             Glide.with(myContext).load(viewPagerItem.getImageUrl()).into(holder.imageView);
         }
+        //文章标题点击跳转到文章详情页
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

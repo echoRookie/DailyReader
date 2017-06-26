@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Created by rookie on 2017/6/20.
+ * 文章专栏部分的数据解析
  */
 
 public class SectionGson {

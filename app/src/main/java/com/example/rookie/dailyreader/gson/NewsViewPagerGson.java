@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Created by rookie on 2017/6/2.
+ * 文章轮播图的数据解析
  */
 
 public class NewsViewPagerGson {

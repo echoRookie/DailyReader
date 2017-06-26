@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by rookie on 2017/6/12.
+ * 新闻详情页数据解析
  */
 
 public class NewsInfoGson {

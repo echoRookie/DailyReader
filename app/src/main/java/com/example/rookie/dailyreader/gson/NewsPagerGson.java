@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by rookie on 2017/6/24.
+ * 主题日报数据解析
  */
 
 public class NewsPagerGson {

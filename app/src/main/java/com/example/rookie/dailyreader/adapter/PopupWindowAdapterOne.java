@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 /**
  * Created by rookie on 2017/6/24.
+ *  popupwindow未选择主题日报适配器
  */
 
 public class PopupWindowAdapterOne extends RecyclerView.Adapter <PopupWindowAdapterOne.MyViewHolder>{
@@ -66,6 +67,7 @@ public class PopupWindowAdapterOne extends RecyclerView.Adapter <PopupWindowAdap
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //已选择的主题日报添加
                 myNewspaperApater.getMyLists().add(info);
                 myNewspaperApater.notifyDataSetChanged();
                 popupWindowAdapter.getMyLists().add(info);
@@ -77,6 +79,7 @@ public class PopupWindowAdapterOne extends RecyclerView.Adapter <PopupWindowAdap
                 db.setTitle(info.getTitle());
                 db.setImageUrl(info.getImageUrl());
                 db.save();
+                //未选择的删除
                 myLists.remove(positionOne);
                 notifyItemRemoved(positionOne);
                 notifyDataSetChanged();

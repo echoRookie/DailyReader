@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 /**
  * Created by rookie on 2017/6/24.
+ * 主题日报分类适配器
  */
 
 public class NewspaperApater extends RecyclerView.Adapter <NewspaperApater.MyViewHolder> {
@@ -47,9 +48,13 @@ public class NewspaperApater extends RecyclerView.Adapter <NewspaperApater.MyVie
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final NewspaperInfo info = myLists.get(position);
+        //主题日报标题
         holder.title.setText(info.getTitle());
+        //名字
         holder.paperName.setText(info.getPaperName());
+        //图片
         Glide.with(myContext).load(info.getImageUrl()).into(holder.imageView);
+        //点击跳转到日报详情页
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
